@@ -24,11 +24,13 @@
 		664F74D218CFAC710038EFF7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664F74AD18CFAC710038EFF7 /* UIKit.framework */; };
 		664F74DA18CFAC710038EFF7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 664F74D818CFAC710038EFF7 /* InfoPlist.strings */; };
 		664F74DC18CFAC710038EFF7 /* PortballTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 664F74DB18CFAC710038EFF7 /* PortballTests.m */; };
-		664F74ED18CFAF940038EFF7 /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 664F74E818CFAF940038EFF7 /* ball.png */; };
-		664F74EE18CFAF940038EFF7 /* octagon.png in Resources */ = {isa = PBXBuildFile; fileRef = 664F74E918CFAF940038EFF7 /* octagon.png */; };
-		664F74EF18CFAF940038EFF7 /* sand.png in Resources */ = {isa = PBXBuildFile; fileRef = 664F74EA18CFAF940038EFF7 /* sand.png */; };
-		664F74F018CFAF940038EFF7 /* square.png in Resources */ = {isa = PBXBuildFile; fileRef = 664F74EB18CFAF940038EFF7 /* square.png */; };
-		664F74F118CFAF940038EFF7 /* triangle.png in Resources */ = {isa = PBXBuildFile; fileRef = 664F74EC18CFAF940038EFF7 /* triangle.png */; };
+		66F3000018D0024D00C656C5 /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F3FFFA18D0024D00C656C5 /* SKTAudio.m */; };
+		66F3000118D0024D00C656C5 /* SKTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66F3FFFC18D0024D00C656C5 /* SKTUtils.mm */; };
+		66F3FFEF18D0001300C656C5 /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 66F3FFEE18D0001300C656C5 /* ball.png */; };
+		66F3FFF118D0017D00C656C5 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 66F3FFF018D0017D00C656C5 /* background.png */; };
+		66F3FFFD18D0024D00C656C5 /* SKAction+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F3FFF418D0024D00C656C5 /* SKAction+SKTExtras.m */; };
+		66F3FFFE18D0024D00C656C5 /* SKEmitterNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F3FFF618D0024D00C656C5 /* SKEmitterNode+SKTExtras.m */; };
+		66F3FFFF18D0024D00C656C5 /* SKNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F3FFF818D0024D00C656C5 /* SKNode+SKTExtras.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,11 +67,18 @@
 		664F74D718CFAC710038EFF7 /* PortballTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PortballTests-Info.plist"; sourceTree = "<group>"; };
 		664F74D918CFAC710038EFF7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		664F74DB18CFAC710038EFF7 /* PortballTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PortballTests.m; sourceTree = "<group>"; };
-		664F74E818CFAF940038EFF7 /* ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ball.png; sourceTree = "<group>"; };
-		664F74E918CFAF940038EFF7 /* octagon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = octagon.png; sourceTree = "<group>"; };
-		664F74EA18CFAF940038EFF7 /* sand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sand.png; sourceTree = "<group>"; };
-		664F74EB18CFAF940038EFF7 /* square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = square.png; sourceTree = "<group>"; };
-		664F74EC18CFAF940038EFF7 /* triangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = triangle.png; sourceTree = "<group>"; };
+		66F3FFEE18D0001300C656C5 /* ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ball.png; sourceTree = "<group>"; };
+		66F3FFF018D0017D00C656C5 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		66F3FFF318D0024D00C656C5 /* SKAction+SKTExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKAction+SKTExtras.h"; sourceTree = "<group>"; };
+		66F3FFF418D0024D00C656C5 /* SKAction+SKTExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKAction+SKTExtras.m"; sourceTree = "<group>"; };
+		66F3FFF518D0024D00C656C5 /* SKEmitterNode+SKTExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKEmitterNode+SKTExtras.h"; sourceTree = "<group>"; };
+		66F3FFF618D0024D00C656C5 /* SKEmitterNode+SKTExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKEmitterNode+SKTExtras.m"; sourceTree = "<group>"; };
+		66F3FFF718D0024D00C656C5 /* SKNode+SKTExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKNode+SKTExtras.h"; sourceTree = "<group>"; };
+		66F3FFF818D0024D00C656C5 /* SKNode+SKTExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKNode+SKTExtras.m"; sourceTree = "<group>"; };
+		66F3FFF918D0024D00C656C5 /* SKTAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTAudio.h; sourceTree = "<group>"; };
+		66F3FFFA18D0024D00C656C5 /* SKTAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTAudio.m; sourceTree = "<group>"; };
+		66F3FFFB18D0024D00C656C5 /* SKTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTUtils.h; sourceTree = "<group>"; };
+		66F3FFFC18D0024D00C656C5 /* SKTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTUtils.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,10 +140,11 @@
 		664F74B118CFAC710038EFF7 /* Portball */ = {
 			isa = PBXGroup;
 			children = (
+				66F3FFF218D0024D00C656C5 /* SKTUtils */,
+				664F74E718CFAF940038EFF7 /* Images */,
 				664F74BA18CFAC710038EFF7 /* AppDelegate.h */,
 				664F74BB18CFAC710038EFF7 /* AppDelegate.m */,
 				664F74BD18CFAC710038EFF7 /* Main.storyboard */,
-				664F74E718CFAF940038EFF7 /* Shapes */,
 				664F74C018CFAC710038EFF7 /* ViewController.h */,
 				664F74C118CFAC710038EFF7 /* ViewController.m */,
 				664F74C318CFAC710038EFF7 /* MyScene.h */,
@@ -175,16 +185,31 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		664F74E718CFAF940038EFF7 /* Shapes */ = {
+		664F74E718CFAF940038EFF7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				664F74E818CFAF940038EFF7 /* ball.png */,
-				664F74E918CFAF940038EFF7 /* octagon.png */,
-				664F74EA18CFAF940038EFF7 /* sand.png */,
-				664F74EB18CFAF940038EFF7 /* square.png */,
-				664F74EC18CFAF940038EFF7 /* triangle.png */,
+				66F3FFF018D0017D00C656C5 /* background.png */,
+				66F3FFEE18D0001300C656C5 /* ball.png */,
 			);
+			name = Images;
 			path = Shapes;
+			sourceTree = "<group>";
+		};
+		66F3FFF218D0024D00C656C5 /* SKTUtils */ = {
+			isa = PBXGroup;
+			children = (
+				66F3FFF318D0024D00C656C5 /* SKAction+SKTExtras.h */,
+				66F3FFF418D0024D00C656C5 /* SKAction+SKTExtras.m */,
+				66F3FFF518D0024D00C656C5 /* SKEmitterNode+SKTExtras.h */,
+				66F3FFF618D0024D00C656C5 /* SKEmitterNode+SKTExtras.m */,
+				66F3FFF718D0024D00C656C5 /* SKNode+SKTExtras.h */,
+				66F3FFF818D0024D00C656C5 /* SKNode+SKTExtras.m */,
+				66F3FFF918D0024D00C656C5 /* SKTAudio.h */,
+				66F3FFFA18D0024D00C656C5 /* SKTAudio.m */,
+				66F3FFFB18D0024D00C656C5 /* SKTUtils.h */,
+				66F3FFFC18D0024D00C656C5 /* SKTUtils.mm */,
+			);
+			path = SKTUtils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,13 +289,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				664F74B618CFAC710038EFF7 /* InfoPlist.strings in Resources */,
+				66F3FFF118D0017D00C656C5 /* background.png in Resources */,
+				66F3FFEF18D0001300C656C5 /* ball.png in Resources */,
 				664F74C918CFAC710038EFF7 /* Images.xcassets in Resources */,
-				664F74EF18CFAF940038EFF7 /* sand.png in Resources */,
-				664F74ED18CFAF940038EFF7 /* ball.png in Resources */,
-				664F74F118CFAF940038EFF7 /* triangle.png in Resources */,
-				664F74EE18CFAF940038EFF7 /* octagon.png in Resources */,
 				664F74C718CFAC710038EFF7 /* Spaceship.png in Resources */,
-				664F74F018CFAF940038EFF7 /* square.png in Resources */,
 				664F74BF18CFAC710038EFF7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,8 +313,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				664F74C518CFAC710038EFF7 /* MyScene.m in Sources */,
+				66F3000018D0024D00C656C5 /* SKTAudio.m in Sources */,
 				664F74C218CFAC710038EFF7 /* ViewController.m in Sources */,
+				66F3FFFE18D0024D00C656C5 /* SKEmitterNode+SKTExtras.m in Sources */,
+				66F3000118D0024D00C656C5 /* SKTUtils.mm in Sources */,
+				66F3FFFD18D0024D00C656C5 /* SKAction+SKTExtras.m in Sources */,
 				664F74BC18CFAC710038EFF7 /* AppDelegate.m in Sources */,
+				66F3FFFF18D0024D00C656C5 /* SKNode+SKTExtras.m in Sources */,
 				664F74B818CFAC710038EFF7 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -504,6 +531,7 @@
 				664F74E118CFAC710038EFF7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		664F74E218CFAC710038EFF7 /* Build configuration list for PBXNativeTarget "PortballTests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +540,7 @@
 				664F74E418CFAC710038EFF7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
