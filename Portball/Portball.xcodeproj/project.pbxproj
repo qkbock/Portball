@@ -24,6 +24,8 @@
 		664F74D218CFAC710038EFF7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664F74AD18CFAC710038EFF7 /* UIKit.framework */; };
 		664F74DA18CFAC710038EFF7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 664F74D818CFAC710038EFF7 /* InfoPlist.strings */; };
 		664F74DC18CFAC710038EFF7 /* PortballTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 664F74DB18CFAC710038EFF7 /* PortballTests.m */; };
+		668DC98E18D88E9E0035A71D /* friend.png in Resources */ = {isa = PBXBuildFile; fileRef = 668DC98C18D88E9E0035A71D /* friend.png */; };
+		668DC98F18D88E9E0035A71D /* enemy.png in Resources */ = {isa = PBXBuildFile; fileRef = 668DC98D18D88E9E0035A71D /* enemy.png */; };
 		66F3000018D0024D00C656C5 /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F3FFFA18D0024D00C656C5 /* SKTAudio.m */; };
 		66F3000118D0024D00C656C5 /* SKTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66F3FFFC18D0024D00C656C5 /* SKTUtils.mm */; };
 		66F3FFEF18D0001300C656C5 /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 66F3FFEE18D0001300C656C5 /* ball.png */; };
@@ -67,6 +69,8 @@
 		664F74D718CFAC710038EFF7 /* PortballTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PortballTests-Info.plist"; sourceTree = "<group>"; };
 		664F74D918CFAC710038EFF7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		664F74DB18CFAC710038EFF7 /* PortballTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PortballTests.m; sourceTree = "<group>"; };
+		668DC98C18D88E9E0035A71D /* friend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = friend.png; sourceTree = "<group>"; };
+		668DC98D18D88E9E0035A71D /* enemy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy.png; sourceTree = "<group>"; };
 		66F3FFEE18D0001300C656C5 /* ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ball.png; sourceTree = "<group>"; };
 		66F3FFF018D0017D00C656C5 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		66F3FFF318D0024D00C656C5 /* SKAction+SKTExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKAction+SKTExtras.h"; sourceTree = "<group>"; };
@@ -188,6 +192,8 @@
 		664F74E718CFAF940038EFF7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				668DC98C18D88E9E0035A71D /* friend.png */,
+				668DC98D18D88E9E0035A71D /* enemy.png */,
 				66F3FFF018D0017D00C656C5 /* background.png */,
 				66F3FFEE18D0001300C656C5 /* ball.png */,
 			);
@@ -290,6 +296,8 @@
 			files = (
 				664F74B618CFAC710038EFF7 /* InfoPlist.strings in Resources */,
 				66F3FFF118D0017D00C656C5 /* background.png in Resources */,
+				668DC98F18D88E9E0035A71D /* enemy.png in Resources */,
+				668DC98E18D88E9E0035A71D /* friend.png in Resources */,
 				66F3FFEF18D0001300C656C5 /* ball.png in Resources */,
 				664F74C918CFAC710038EFF7 /* Images.xcassets in Resources */,
 				664F74C718CFAC710038EFF7 /* Spaceship.png in Resources */,
