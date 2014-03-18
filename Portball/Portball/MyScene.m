@@ -8,7 +8,7 @@
 
 
 #import "MyScene.h"
-
+#import "SKSpriteNode+DebugDraw.h"
 
 typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 {
@@ -86,7 +86,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     _ball.physicsBody.categoryBitMask = CNPhysicsCategoryBall;
     _ball.physicsBody.collisionBitMask = CNPhysicsCategoryFloor | CNPhysicsCategoryShelf;
 
-
+    [_ball attachDebugRectWithSize: _ball.size];
     [self addChild:_ball];
     
     //With a path
