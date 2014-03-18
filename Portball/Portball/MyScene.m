@@ -16,6 +16,8 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     CNPhysicsCategoryFloor = 1 << 1, // 0010 = 2
     CNPhysicsCategoryEnemy = 1 << 2, // 0100 = 4
     CNPhysicsCategoryFriend = 1 << 3, // 1000 = 8
+    CNPhysicsCategoryShelf = 1 << 4, // 1000 = 8
+
 };
 
 @interface MyScene()<SKPhysicsContactDelegate>
@@ -28,6 +30,9 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     
     SKNode *_bgLayer;
     
+    CGPoint _touchLocation;
+
+
     NSTimeInterval _lastUpdateTime;
     NSTimeInterval _dt;
     int counter;
@@ -79,7 +84,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     _ball.physicsBody.restitution = 1.0;
 //    _ball.physicsBody.density = 20.0;
     _ball.physicsBody.categoryBitMask = CNPhysicsCategoryBall;
-    _ball.physicsBody.collisionBitMask = CNPhysicsCategoryFloor;
+    _ball.physicsBody.collisionBitMask = CNPhysicsCategoryFloor | CNPhysicsCategoryShelf;
 
 
     [self addChild:_ball];
@@ -101,16 +106,21 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     CGPoint position = CGPointMake(self.size.width, self.size.height*drand48());
     
     //pick a thing to draw
-    double r = arc4random_uniform(2);
+    double r = arc4random_uniform(3);
     
     if (r < 1) {
         NSLog(@"0");
         [self spawnFriend:position];
     }
     
-    if (r >= 1) {
+    if (r >= 1 && r < 2) {
          NSLog(@"1");
         [self spawnEnemy:position];
+    }
+    
+    if (r >= 2) {
+        NSLog(@"2");
+        [self spawnShelf:position];
     }
     
 }
@@ -120,7 +130,9 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
-
+    _touchLocation = [touch locationInNode:self];
+    
+    [self spawnShelf:_touchLocation];
     
     
 }
@@ -161,6 +173,24 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 
 //--------------------------------------------------------------------------
 
+
+-(void)spawnShelf:(CGPoint)position {
+    //with an image
+    SKSpriteNode* _shelf = [SKSpriteNode spriteNodeWithImageNamed:@"shelf"];
+    _shelf.position = position;
+    
+    _shelf.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize: CGSizeMake(_shelf.size.width-2, _shelf.size.height-2)];
+    _shelf.name = @"shelf";
+    
+    _shelf.physicsBody.categoryBitMask = CNPhysicsCategoryShelf;
+    [_shelf.physicsBody setDynamic:NO];
+    
+    //add it to a layer??
+    [self addChild:_shelf];
+}
+
+//--------------------------------------------------------------------------
+
 - (void)update:(CFTimeInterval)currentTime{
     
     if (_lastUpdateTime) {
@@ -190,7 +220,11 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
                                SKSpriteNode *_friend = (SKSpriteNode *)node;
                                _friend.position = CGPointMake(_friend.position.x - 2, _friend.position.y);
                            }];
-    
+    [self enumerateChildNodesWithName:@"shelf"
+                           usingBlock:^(SKNode *node, BOOL *stop){
+                               SKSpriteNode *_shelf = (SKSpriteNode *)node;
+                               _shelf.position = CGPointMake(_shelf.position.x - 2, _shelf.position.y);
+                           }];
 }
 //--------------------------------------------------------------------------
 
