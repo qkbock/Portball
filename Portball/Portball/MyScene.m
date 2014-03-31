@@ -67,8 +67,6 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     
     [self addChild: bg];
     [self spawnBall];
-    
-
 }
 
 //--------------------------------------------------------------------------
