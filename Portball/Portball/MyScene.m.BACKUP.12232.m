@@ -133,6 +133,8 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     self.physicsBody.categoryBitMask = CNPhysicsCategoryFloor;
     [self ballContainer];
     [self spawnBall];
+<<<<<<< HEAD
+=======
 }
 
 -(void)moveBG
@@ -147,6 +149,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
              bg.position = CGPointMake(bg.position.x + bg.size.width*2, bg.position.y);
          }
      }];
+>>>>>>> master
 }
 
 //--------------------------------------------------------------------------

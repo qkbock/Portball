@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6612E07418D8C6CD001DD64B /* SKSpriteNode+DebugDraw.m in Sources */ = {isa = PBXBuildFile; fileRef = 6612E07318D8C6CD001DD64B /* SKSpriteNode+DebugDraw.m */; };
 		664F74AA18CFAC710038EFF7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664F74A918CFAC710038EFF7 /* Foundation.framework */; };
 		664F74AC18CFAC710038EFF7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664F74AB18CFAC710038EFF7 /* CoreGraphics.framework */; };
 		664F74AE18CFAC710038EFF7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664F74AD18CFAC710038EFF7 /* UIKit.framework */; };
@@ -46,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6612E07218D8C6CD001DD64B /* SKSpriteNode+DebugDraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKSpriteNode+DebugDraw.h"; sourceTree = "<group>"; };
+		6612E07318D8C6CD001DD64B /* SKSpriteNode+DebugDraw.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKSpriteNode+DebugDraw.m"; sourceTree = "<group>"; };
 		664F74A618CFAC710038EFF7 /* Portball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Portball.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		664F74A918CFAC710038EFF7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		664F74AB18CFAC710038EFF7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -153,6 +156,8 @@
 				664F74C118CFAC710038EFF7 /* ViewController.m */,
 				664F74C318CFAC710038EFF7 /* MyScene.h */,
 				664F74C418CFAC710038EFF7 /* MyScene.m */,
+				6612E07218D8C6CD001DD64B /* SKSpriteNode+DebugDraw.h */,
+				6612E07318D8C6CD001DD64B /* SKSpriteNode+DebugDraw.m */,
 				664F74C818CFAC710038EFF7 /* Images.xcassets */,
 				664F74B218CFAC710038EFF7 /* Supporting Files */,
 			);
@@ -262,7 +267,7 @@
 		664F749E18CFAC710038EFF7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Aero + Quincy";
 				TargetAttributes = {
 					664F74CD18CFAC710038EFF7 = {
@@ -322,6 +327,7 @@
 			files = (
 				664F74C518CFAC710038EFF7 /* MyScene.m in Sources */,
 				66F3000018D0024D00C656C5 /* SKTAudio.m in Sources */,
+				6612E07418D8C6CD001DD64B /* SKSpriteNode+DebugDraw.m in Sources */,
 				664F74C218CFAC710038EFF7 /* ViewController.m in Sources */,
 				66F3FFFE18D0024D00C656C5 /* SKEmitterNode+SKTExtras.m in Sources */,
 				66F3000118D0024D00C656C5 /* SKTUtils.mm in Sources */,
@@ -382,6 +388,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -420,6 +427,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -479,6 +487,7 @@
 		664F74E318CFAC710038EFF7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Portball.app/Portball";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -501,6 +510,7 @@
 		664F74E418CFAC710038EFF7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Portball.app/Portball";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

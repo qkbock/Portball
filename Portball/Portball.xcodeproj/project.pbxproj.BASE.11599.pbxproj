@@ -17,6 +17,7 @@
 		664F74BF18CFAC710038EFF7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 664F74BD18CFAC710038EFF7 /* Main.storyboard */; };
 		664F74C218CFAC710038EFF7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 664F74C118CFAC710038EFF7 /* ViewController.m */; };
 		664F74C518CFAC710038EFF7 /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 664F74C418CFAC710038EFF7 /* MyScene.m */; };
+		664F74C718CFAC710038EFF7 /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = 664F74C618CFAC710038EFF7 /* Spaceship.png */; };
 		664F74C918CFAC710038EFF7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 664F74C818CFAC710038EFF7 /* Images.xcassets */; };
 		664F74D018CFAC710038EFF7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664F74CF18CFAC710038EFF7 /* XCTest.framework */; };
 		664F74D118CFAC710038EFF7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664F74A918CFAC710038EFF7 /* Foundation.framework */; };
@@ -62,6 +63,7 @@
 		664F74C118CFAC710038EFF7 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		664F74C318CFAC710038EFF7 /* MyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
 		664F74C418CFAC710038EFF7 /* MyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
+		664F74C618CFAC710038EFF7 /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
 		664F74C818CFAC710038EFF7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		664F74CE18CFAC710038EFF7 /* PortballTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PortballTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		664F74CF18CFAC710038EFF7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -153,6 +155,7 @@
 				664F74C118CFAC710038EFF7 /* ViewController.m */,
 				664F74C318CFAC710038EFF7 /* MyScene.h */,
 				664F74C418CFAC710038EFF7 /* MyScene.m */,
+				664F74C618CFAC710038EFF7 /* Spaceship.png */,
 				664F74C818CFAC710038EFF7 /* Images.xcassets */,
 				664F74B218CFAC710038EFF7 /* Supporting Files */,
 			);
@@ -262,7 +265,7 @@
 		664F749E18CFAC710038EFF7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Aero + Quincy";
 				TargetAttributes = {
 					664F74CD18CFAC710038EFF7 = {
@@ -301,6 +304,7 @@
 				668DC98E18D88E9E0035A71D /* friend.png in Resources */,
 				66F3FFEF18D0001300C656C5 /* ball.png in Resources */,
 				664F74C918CFAC710038EFF7 /* Images.xcassets in Resources */,
+				664F74C718CFAC710038EFF7 /* Spaceship.png in Resources */,
 				664F74BF18CFAC710038EFF7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -382,6 +386,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -420,6 +425,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -479,6 +485,7 @@
 		664F74E318CFAC710038EFF7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Portball.app/Portball";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -501,6 +508,7 @@
 		664F74E418CFAC710038EFF7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Portball.app/Portball";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
