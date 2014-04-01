@@ -276,19 +276,19 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 
 -(void)update:(CFTimeInterval)currentTime
 {
-//    if (_lastUpdateTime) {
-//        _dt = currentTime - _lastUpdateTime;
-//    }
-//    else {
-//        _dt = 0;
-//    }
-//    _lastUpdateTime = currentTime;
-//    if (counter > 50) {
-//        [self spawnObstacle];
-//        counter = 0;
-//    } else {
-//        counter ++;
-//    }
+    if (_lastUpdateTime) {
+        _dt = currentTime - _lastUpdateTime;
+    }
+    else {
+        _dt = 0;
+    }
+    _lastUpdateTime = currentTime;
+    if (counter > 50) {
+        [self spawnObstacle];
+        counter = 0;
+    } else {
+        counter ++;
+    }
     while (_ball.physicsBody.angularVelocity != 0) {
         _ball.physicsBody.angularVelocity = 0;
         _ball.physicsBody.velocity = CGVectorMake(0, 0);
