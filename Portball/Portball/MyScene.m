@@ -8,79 +8,22 @@
 
 
 #import "MyScene.h"
+#import "SKTAudio.h"
+#import "SKTUtils.h"
 
 @import AVFoundation;
-
-static inline CGPoint CGPointAdd(const CGPoint a,
-                                 const CGPoint b)
-{
-    return CGPointMake(a.x + b.x, a.y + b.y);
-}
-
-static inline CGPoint CGPointSubtract(const CGPoint a,
-                                      const CGPoint b)
-{
-    return CGPointMake(a.x - b.x, a.y - b.y);
-}
-
-static inline CGPoint CGPointMultiplyScalar(const CGPoint a,
-                                            const CGFloat b)
-{
-    return CGPointMake(a.x * b, a.y * b);
-}
-
-static inline CGFloat CGPointLength(const CGPoint a)
-{
-    return sqrtf(a.x * a.x + a.y * a.y);
-}
-
-static inline CGPoint CGPointNormalize(const CGPoint a)
-{
-    CGFloat length = CGPointLength(a);
-    return CGPointMake(a.x / length, a.y / length);
-}
-
-static inline CGFloat CGPointToAngle(const CGPoint a)
-{
-    return atan2f(a.y, a.x);
-}
-
-static inline CGFloat ScalarSign(CGFloat a)
-{
-    return a >= 0 ? 1 : -1;
-}
-
-// Returns shortest angle between two angles,
-// between -M_PI and M_PI
-static inline CGFloat ScalarShortestAngleBetween(
-                                                 const CGFloat a, const CGFloat b)
-{
-    CGFloat difference = b - a;
-    CGFloat angle = fmodf(difference, M_PI * 2);
-    if (angle >= M_PI) {
-        angle -= M_PI * 2;
-    }
-    return angle;
-}
-
-#define ARC4RANDOM_MAX      0x100000000
-static inline CGFloat ScalarRandomRange(CGFloat min,
-                                        CGFloat max)
-{
-    return floorf(((double)arc4random() / ARC4RANDOM_MAX) *
-                  (max - min) + min);
-}
 
 static const float BG_SPEED = 50;
 
 typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 {
-    CNPhysicsCategoryBall = 1 << 0, // 0001 = 1
-    CNPhysicsCategoryFloor = 1 << 1, // 0010 = 2
-    CNPhysicsCategoryEnemy = 1 << 2, // 0100 = 4
-    CNPhysicsCategoryFriend = 1 << 3, // 1000 = 8
-    CNPhysicsCategoryShelf = 1 << 4, // 1000 = 8
-
+    CNPhysicsCategoryBall   = 1 << 0,
+    CNPhysicsCategoryFloor  = 1 << 1,
+    CNPhysicsCategoryEnemy  = 1 << 2,
+    CNPhysicsCategoryFriend = 1 << 3,
+    CNPhysicsCategoryShelf  = 1 << 4,
+    CNPhysicsCategoryWhite  = 1 << 5,
+    CNPhysicsCategoryBlack  = 1 << 6,
 };
 
 @interface MyScene()<SKPhysicsContactDelegate>
@@ -90,15 +33,17 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 {
     SKSpriteNode *_ball;
     SKSpriteNode *_container;
+    SKSpriteNode *_whiteHole;
+    SKSpriteNode *_blackHole;
 //    SKShapeNode *_ball;
-    
     SKNode *_bgLayer;
-    
+    SKNode *_portalNode;
+    SKNode *_ballNode;
     CGPoint _touchLocation;
-
-
     NSTimeInterval _lastUpdateTime;
     NSTimeInterval _dt;
+    BOOL isWhite;
+    BOOL isBlack;
     int counter;
 }
 
@@ -120,8 +65,10 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 
 - (void)initializeScene
 {
+    isWhite = NO;
+    isBlack = NO;
     counter = 0;
-//    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
     for (int i = 0; i < 2; i++) {
         SKSpriteNode* bg = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
         bg.anchorPoint = CGPointZero;
@@ -131,8 +78,11 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     }
     self.physicsWorld.contactDelegate = self;
     self.physicsBody.categoryBitMask = CNPhysicsCategoryFloor;
-    [self ballContainer];
-    [self spawnBall];
+    _portalNode = [SKNode node];
+    [self addChild:_portalNode];
+    _ballNode = [SKNode node];
+    [self addChild:_ballNode];
+    [self spawnBall:CGPointMake(20, 160)];
 }
 
 -(void)moveBG
@@ -151,25 +101,11 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 
 //--------------------------------------------------------------------------
 
--(void)ballContainer
-{
-    _container = [SKSpriteNode spriteNodeWithColor:[SKColor colorWithRed:0 green:0 blue:0 alpha:0] size:CGSizeMake(40, self.size.height)];
-    CGRect body = _container.frame;
-    _container.position = CGPointMake(40, 160);
-    _container.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:body];
-    [self addChild:_container];
-//    SKShapeNode *stroke = [SKShapeNode node];
-//    stroke.path = CGPathCreateWithRect(body,nil);
-//    stroke.strokeColor = [SKColor colorWithRed:1.0 green:0 blue:0 alpha:0.5];
-//    stroke.lineWidth = 1.0;
-//    [self addChild:stroke];
-}
-
--(void)spawnBall
+-(void)spawnBall:(CGPoint)position
 {
     //with an image
     _ball = [SKSpriteNode spriteNodeWithImageNamed:@"ball"];
-    _ball.position = CGPointMake(0, 0);
+    _ball.position = position;
     
     _ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:_ball.size.width/2];
     _ball.name = @"ball";
@@ -178,7 +114,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     _ball.physicsBody.categoryBitMask = CNPhysicsCategoryBall;
     _ball.physicsBody.collisionBitMask = CNPhysicsCategoryFloor | CNPhysicsCategoryShelf;
 
-    [_container addChild:_ball];
+    [_ballNode addChild:_ball];
     
     //With a path
 //    _ball = [SKShapeNode node];
@@ -200,17 +136,17 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     double r = arc4random_uniform(3);
     
     if (r < 1) {
-        NSLog(@"0");
+        // NSLog(@"0");
         [self spawnFriend:position];
     }
     
     if (r >= 1 && r < 2) {
-         NSLog(@"1");
+        // NSLog(@"1");
         [self spawnEnemy:position];
     }
     
     if (r >= 2) {
-        NSLog(@"2");
+        // NSLog(@"2");
         [self spawnShelf:position];
     }
     
@@ -218,19 +154,73 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 
 //--------------------------------------------------------------------------
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
     _touchLocation = [touch locationInNode:self];
+    // NSLog(@"%@", NSStringFromCGPoint(_touchLocation));
+    [self portals:_touchLocation];
+    /* broken to be fixed
+    if (isWhite) {
+        [_whiteHole runAction:[SKAction animateWithTextures:@[[SKTexture textureWithImageNamed:@"white"],[SKTexture textureWithImageNamed:@"white1"],[SKTexture textureWithImageNamed:@"white2"],[SKTexture textureWithImageNamed:@"white3"],[SKTexture textureWithImageNamed:@"white2"],[SKTexture textureWithImageNamed:@"white1"]] timePerFrame:0.15]];
+    }
+    */
+}
+
+-(void)portals:(CGPoint)position
+{
+    _whiteHole = [SKSpriteNode spriteNodeWithImageNamed:@"white"];
+    _whiteHole.position = position;
+    _whiteHole.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:_ball.size.width/2];
+    _whiteHole.physicsBody.dynamic = NO;
+    _whiteHole.name = @"whiteHole";
+    _whiteHole.physicsBody.categoryBitMask = CNPhysicsCategoryWhite;
+    _whiteHole.physicsBody.collisionBitMask = kNilOptions;
+    _whiteHole.physicsBody.contactTestBitMask = CNPhysicsCategoryBall;
     
-    [self spawnShelf:_touchLocation];
+    _blackHole = [SKSpriteNode spriteNodeWithImageNamed:@"black"];
+    _blackHole.position = position;
+    _blackHole.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:_ball.size.width/2];
+    _blackHole.physicsBody.dynamic = NO;
+    _blackHole.name = @"blackHole";
+    _blackHole.physicsBody.categoryBitMask = CNPhysicsCategoryBlack;
+    _blackHole.physicsBody.collisionBitMask = kNilOptions;
+    _blackHole.physicsBody.contactTestBitMask = CNPhysicsCategoryBall;
+    if (!isWhite) {
+        [_portalNode addChild:_whiteHole];
+        isWhite = YES;
+    } else if (!isBlack) {
+        [_portalNode addChild:_blackHole];
+        isBlack = YES;
+        _blackHole.userData = [@{@"exist":@(YES)} mutableCopy];
+    } else {
+        [_portalNode removeAllChildren];
+        isWhite = NO;
+        isBlack = NO;
+    }
     
-    
+}
+
+-(void)didBeginContact:(SKPhysicsContact *)contact
+{
+    uint32_t collision = (contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask);
+    if (collision == (CNPhysicsCategoryBall|CNPhysicsCategoryWhite)) {
+        if (_blackHole.userData[@"exist"]) {
+            [_ballNode removeAllChildren];
+            CGPoint position = _blackHole.position;
+            [self spawnBall:position];
+            [_portalNode removeAllChildren];
+            isWhite = NO;
+            isBlack = NO;
+            
+        }
+    }
 }
 
 //--------------------------------------------------------------------------
 
--(void)spawnFriend:(CGPoint)position {
+-(void)spawnFriend:(CGPoint)position
+{
     //with an image
     SKSpriteNode* _friend = [SKSpriteNode spriteNodeWithImageNamed:@"friend"];
     _friend.position = position;
@@ -247,7 +237,8 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 
 //--------------------------------------------------------------------------
 
--(void)spawnEnemy:(CGPoint)position {
+-(void)spawnEnemy:(CGPoint)position
+{
     //with an image
     SKSpriteNode* _enemy = [SKSpriteNode spriteNodeWithImageNamed:@"enemy"];
     _enemy.position = position;
@@ -265,7 +256,8 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 //--------------------------------------------------------------------------
 
 
--(void)spawnShelf:(CGPoint)position {
+-(void)spawnShelf:(CGPoint)position
+{
     //with an image
     SKSpriteNode* _shelf = [SKSpriteNode spriteNodeWithImageNamed:@"shelf"];
     _shelf.position = position;
@@ -282,7 +274,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 
 //--------------------------------------------------------------------------
 
-- (void)update:(CFTimeInterval)currentTime
+-(void)update:(CFTimeInterval)currentTime
 {
     if (_lastUpdateTime) {
         _dt = currentTime - _lastUpdateTime;
@@ -291,16 +283,16 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
         _dt = 0;
     }
     _lastUpdateTime = currentTime;
-    
-    
     if (counter > 50) {
         [self spawnObstacle];
         counter = 0;
     } else {
         counter ++;
     }
-    
-    
+    while (_ball.physicsBody.angularVelocity != 0) {
+        _ball.physicsBody.angularVelocity = 0;
+        _ball.physicsBody.velocity = CGVectorMake(0, 0);
+    }
     [self enumerateChildNodesWithName:@"friend"
                            usingBlock:^(SKNode *node, BOOL *stop){
                                SKSpriteNode *_friend = (SKSpriteNode *)node;
@@ -318,6 +310,8 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
                            }];
     [self moveBG];
 }
+
+
 //--------------------------------------------------------------------------
 
 @end
