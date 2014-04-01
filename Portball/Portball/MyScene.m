@@ -8,7 +8,70 @@
 
 
 #import "MyScene.h"
-#import "SKSpriteNode+DebugDraw.h"
+
+@import AVFoundation;
+
+static inline CGPoint CGPointAdd(const CGPoint a,
+                                 const CGPoint b)
+{
+    return CGPointMake(a.x + b.x, a.y + b.y);
+}
+
+static inline CGPoint CGPointSubtract(const CGPoint a,
+                                      const CGPoint b)
+{
+    return CGPointMake(a.x - b.x, a.y - b.y);
+}
+
+static inline CGPoint CGPointMultiplyScalar(const CGPoint a,
+                                            const CGFloat b)
+{
+    return CGPointMake(a.x * b, a.y * b);
+}
+
+static inline CGFloat CGPointLength(const CGPoint a)
+{
+    return sqrtf(a.x * a.x + a.y * a.y);
+}
+
+static inline CGPoint CGPointNormalize(const CGPoint a)
+{
+    CGFloat length = CGPointLength(a);
+    return CGPointMake(a.x / length, a.y / length);
+}
+
+static inline CGFloat CGPointToAngle(const CGPoint a)
+{
+    return atan2f(a.y, a.x);
+}
+
+static inline CGFloat ScalarSign(CGFloat a)
+{
+    return a >= 0 ? 1 : -1;
+}
+
+// Returns shortest angle between two angles,
+// between -M_PI and M_PI
+static inline CGFloat ScalarShortestAngleBetween(
+                                                 const CGFloat a, const CGFloat b)
+{
+    CGFloat difference = b - a;
+    CGFloat angle = fmodf(difference, M_PI * 2);
+    if (angle >= M_PI) {
+        angle -= M_PI * 2;
+    }
+    return angle;
+}
+
+#define ARC4RANDOM_MAX      0x100000000
+static inline CGFloat ScalarRandomRange(CGFloat min,
+                                        CGFloat max)
+{
+    return floorf(((double)arc4random() / ARC4RANDOM_MAX) *
+                  (max - min) + min);
+}
+
+static const float BG_SPEED = 50;
 
 typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 {
@@ -26,6 +89,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 @implementation MyScene
 {
     SKSpriteNode *_ball;
+    SKSpriteNode *_container;
 //    SKShapeNode *_ball;
     
     SKNode *_bgLayer;
@@ -57,27 +121,55 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 - (void)initializeScene
 {
     counter = 0;
-    
-    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
-    SKSpriteNode* bg = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
-    bg.position = CGPointMake(self.size.width/2, self.size.height/2);
-    
+//    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+    for (int i = 0; i < 2; i++) {
+        SKSpriteNode* bg = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
+        bg.anchorPoint = CGPointZero;
+        bg.position = CGPointMake(i * bg.size.width, 0);
+        bg.name = @"bg";
+        [self addChild: bg];
+    }
     self.physicsWorld.contactDelegate = self;
     self.physicsBody.categoryBitMask = CNPhysicsCategoryFloor;
-    
-    [self addChild: bg];
+    [self ballContainer];
     [self spawnBall];
-    
+}
 
+-(void)moveBG
+{
+    [self enumerateChildNodesWithName:@"bg" usingBlock:^(SKNode *node, BOOL *stop)
+     {
+         SKSpriteNode *bg = (SKSpriteNode *) node;
+         CGPoint bgVelocity = CGPointMake(-BG_SPEED, 0);
+         CGPoint amtToMove = CGPointMultiplyScalar(bgVelocity, _dt);
+         bg.position = CGPointAdd(bg.position, amtToMove);
+         if (bg.position.x <= -bg.size.width) {
+             bg.position = CGPointMake(bg.position.x + bg.size.width*2, bg.position.y);
+         }
+     }];
 }
 
 //--------------------------------------------------------------------------
+
+-(void)ballContainer
+{
+    _container = [SKSpriteNode spriteNodeWithColor:[SKColor colorWithRed:0 green:0 blue:0 alpha:0] size:CGSizeMake(40, self.size.height)];
+    CGRect body = _container.frame;
+    _container.position = CGPointMake(40, 160);
+    _container.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:body];
+    [self addChild:_container];
+//    SKShapeNode *stroke = [SKShapeNode node];
+//    stroke.path = CGPathCreateWithRect(body,nil);
+//    stroke.strokeColor = [SKColor colorWithRed:1.0 green:0 blue:0 alpha:0.5];
+//    stroke.lineWidth = 1.0;
+//    [self addChild:stroke];
+}
 
 -(void)spawnBall
 {
     //with an image
     _ball = [SKSpriteNode spriteNodeWithImageNamed:@"ball"];
-    _ball.position = CGPointMake(self.size.width/8, self.size.height/2);
+    _ball.position = CGPointMake(0, 0);
     
     _ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:_ball.size.width/2];
     _ball.name = @"ball";
@@ -86,8 +178,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     _ball.physicsBody.categoryBitMask = CNPhysicsCategoryBall;
     _ball.physicsBody.collisionBitMask = CNPhysicsCategoryFloor | CNPhysicsCategoryShelf;
 
-    [_ball attachDebugRectWithSize: _ball.size];
-    [self addChild:_ball];
+    [_container addChild:_ball];
     
     //With a path
 //    _ball = [SKShapeNode node];
@@ -191,8 +282,8 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 
 //--------------------------------------------------------------------------
 
-- (void)update:(CFTimeInterval)currentTime{
-    
+- (void)update:(CFTimeInterval)currentTime
+{
     if (_lastUpdateTime) {
         _dt = currentTime - _lastUpdateTime;
     }
@@ -225,32 +316,8 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
                                SKSpriteNode *_shelf = (SKSpriteNode *)node;
                                _shelf.position = CGPointMake(_shelf.position.x - 2, _shelf.position.y);
                            }];
+    [self moveBG];
 }
 //--------------------------------------------------------------------------
 
-- (void)moveBg
-{
-//    CGVector moveBackgroundVector = CGVectorMake(-1, 0);
-//    _bgLayer.position = _bgLayer.position + moveBackgroundVector;
-//    
-//    CGPoint bgVelocity = CGPointMake(-BG_POINTS_PER_SEC, 0);
-//    CGPoint amtToMove = CGPointMultiplyScalar(bgVelocity, _dt);
-//    _bgLayer.position = CGPointAdd(_bgLayer.position, amtToMove);
-//    [_bgLayer enumerateChildNodesWithName:@"bg" usingBlock: 128
-//     ^(SKNode *node, BOOL *stop) {
-//         SKSpriteNode * bg = (SKSpriteNode *) node;
-//         if (bg.position.x <= -bg.size.width) {
-//             bg.position =
-//             CGPointMake(bg.position.x + bg.size.width*2,
-//                         bg.position.y);
-//         }
-//     }];
-}
-
-//--------------------------------------------------------------------------
-//--------------------------------------------------------------------------
-//--------------------------------------------------------------------------
-//--------------------------------------------------------------------------
-//--------------------------------------------------------------------------
-//--------------------------------------------------------------------------
 @end
