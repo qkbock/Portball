@@ -172,6 +172,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
         [_whiteHole runAction:[SKAction animateWithTextures:@[[SKTexture textureWithImageNamed:@"white"],[SKTexture textureWithImageNamed:@"white1"],[SKTexture textureWithImageNamed:@"white2"],[SKTexture textureWithImageNamed:@"white3"],[SKTexture textureWithImageNamed:@"white2"],[SKTexture textureWithImageNamed:@"white1"]] timePerFrame:0.15]];
     }
     */
+//    _bunnyNode.position = CGPointMake(_bunnyNode.position.x, _bunnyNode.position.y +60);
 }
 
 -(void)portals:(CGPoint)position
@@ -397,7 +398,10 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     SKPhysicsJointPin *tailJoint = [SKPhysicsJointPin jointWithBodyA:_tail.physicsBody
                                                                bodyB:_body.physicsBody
                                                               anchor:CGPointMake(position.x - 23.639, position.y - 31.644)];
-    SKPhysicsJointSliding *jawJoint = [SKPhysicsJointSliding jointWithBodyA:_jaw.physicsBody bodyB:_body.physicsBody anchor:CGPointMake(position.x + 12.578, position.y + 18.503) axis: CGVectorMake(0, .1)];
+    SKPhysicsJointPin *jawJoint = [SKPhysicsJointPin jointWithBodyA:_jaw.physicsBody
+                                                               bodyB:_body.physicsBody
+                                                              anchor:CGPointMake(position.x + 12.578, position.y + 18.503)];
+//    SKPhysicsJointSliding *jawJoint = [SKPhysicsJointSliding jointWithBodyA:_jaw.physicsBody bodyB:_body.physicsBody anchor:CGPointMake(position.x + 12.578, position.y + 18.503) axis: CGVectorMake(0, .1)];
     
     SKPhysicsJointFixed *earSpringJointFix = [SKPhysicsJointFixed jointWithBodyA:_earSpringHook.physicsBody bodyB:_body.physicsBody anchor:_body.position ];
     SKPhysicsJointFixed *jawSpringJointFix = [SKPhysicsJointFixed jointWithBodyA:_jawSpringHook.physicsBody bodyB:_body.physicsBody anchor:_body.position ];
@@ -406,11 +410,35 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     
     SKPhysicsJointSpring *ear1SpringJoint = [SKPhysicsJointSpring jointWithBodyA:_earSpringHook.physicsBody bodyB:_backEar.physicsBody anchorA:_earSpringHook.position anchorB:CGPointMake(position.x - 2.818, position.y + 52.228)];
     SKPhysicsJointSpring *ear2SpringJoint = [SKPhysicsJointSpring jointWithBodyA:_earSpringHook.physicsBody bodyB:_frontEar.physicsBody anchorA:_earSpringHook.position anchorB:CGPointMake(position.x - 12.642, position.y + 49.148)];
-
+  
+    arm1Joint.shouldEnableLimits = YES;
+    arm1Joint.upperAngleLimit = 0.3;
+    arm1Joint.lowerAngleLimit = -0.5;
+    arm1Joint.frictionTorque = 0.001;
+    arm2Joint.shouldEnableLimits = YES;
+    arm2Joint.upperAngleLimit = 0.3;
+    arm2Joint.lowerAngleLimit = -0.5;
+    arm2Joint.frictionTorque = 0.001;
+    
+    leg1Joint.shouldEnableLimits = YES;
+    leg1Joint.upperAngleLimit = 0.8;
+    leg1Joint.lowerAngleLimit = -0.5;
+    
+    leg2Joint.shouldEnableLimits = YES;
+    leg2Joint.upperAngleLimit = 0.8;
+    leg2Joint.lowerAngleLimit = -0.5;
+    
+    tailJoint.shouldEnableLimits = YES;
+    tailJoint.upperAngleLimit = 0.3;
+    tailJoint.lowerAngleLimit = -0.3;
     
     jawJoint.shouldEnableLimits = YES;
-    jawJoint.lowerDistanceLimit = 3;
-    jawJoint.upperDistanceLimit = 4;
+    jawJoint.upperAngleLimit = 1.2;
+    jawJoint.lowerAngleLimit = -0.3;
+    
+//    jawJoint.shouldEnableLimits = YES;
+//    jawJoint.lowerDistanceLimit = 3;
+//    jawJoint.upperDistanceLimit = 4;
     ear1SpringJoint.damping = -10;
     ear2SpringJoint.damping = -10;
 
