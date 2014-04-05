@@ -21,7 +21,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     CNPhysicsCategoryFloor  = 1 << 1,
     CNPhysicsCategoryEnemy  = 1 << 2,
     CNPhysicsCategoryFriend = 1 << 3,
-    CNPhysicsCategoryShelf  = 1 << 4,
+    // CNPhysicsCategoryShelf  = 1 << 4,
     CNPhysicsCategoryWhite  = 1 << 5,
     CNPhysicsCategoryBlack  = 1 << 6,
 };
@@ -112,7 +112,8 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     _ball.physicsBody.restitution = 1.0;
 //    _ball.physicsBody.density = 20.0;
     _ball.physicsBody.categoryBitMask = CNPhysicsCategoryBall;
-    _ball.physicsBody.collisionBitMask = CNPhysicsCategoryFloor | CNPhysicsCategoryShelf;
+    _ball.physicsBody.collisionBitMask = CNPhysicsCategoryFloor;
+    _ball.physicsBody.contactTestBitMask = CNPhysicsCategoryEnemy | CNPhysicsCategoryFriend;
 
     [_ballNode addChild:_ball];
     
@@ -144,11 +145,12 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
         // NSLog(@"1");
         [self spawnEnemy:position];
     }
-    
+    /*
     if (r >= 2) {
         // NSLog(@"2");
         [self spawnShelf:position];
     }
+    */
     
 }
 
@@ -215,6 +217,12 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
             
         }
     }
+    if (collision == (CNPhysicsCategoryBall|CNPhysicsCategoryEnemy)) {
+        NSLog(@"Enemy");
+    }
+    if (collision == (CNPhysicsCategoryBall|CNPhysicsCategoryFriend)) {
+        NSLog(@"Friend");
+    }
 }
 
 //--------------------------------------------------------------------------
@@ -255,7 +263,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 
 //--------------------------------------------------------------------------
 
-
+/*
 -(void)spawnShelf:(CGPoint)position
 {
     //with an image
@@ -271,6 +279,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     //add it to a layer??
     [self addChild:_shelf];
 }
+*/
 
 //--------------------------------------------------------------------------
 
@@ -303,11 +312,13 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
                                SKSpriteNode *_friend = (SKSpriteNode *)node;
                                _friend.position = CGPointMake(_friend.position.x - 2, _friend.position.y);
                            }];
+    /*
     [self enumerateChildNodesWithName:@"shelf"
                            usingBlock:^(SKNode *node, BOOL *stop){
                                SKSpriteNode *_shelf = (SKSpriteNode *)node;
                                _shelf.position = CGPointMake(_shelf.position.x - 2, _shelf.position.y);
                            }];
+    */
     [self moveBG];
 }
 
