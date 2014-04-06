@@ -23,6 +23,15 @@
 		664F74D218CFAC710038EFF7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664F74AD18CFAC710038EFF7 /* UIKit.framework */; };
 		664F74DA18CFAC710038EFF7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 664F74D818CFAC710038EFF7 /* InfoPlist.strings */; };
 		664F74DC18CFAC710038EFF7 /* PortballTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 664F74DB18CFAC710038EFF7 /* PortballTests.m */; };
+		66CC4B9018EB5F1F00342911 /* backArm.png in Resources */ = {isa = PBXBuildFile; fileRef = 66CC4B8918EB5F1F00342911 /* backArm.png */; };
+		66CC4B9118EB5F1F00342911 /* backEar.png in Resources */ = {isa = PBXBuildFile; fileRef = 66CC4B8A18EB5F1F00342911 /* backEar.png */; };
+		66CC4B9218EB5F1F00342911 /* backLeg.png in Resources */ = {isa = PBXBuildFile; fileRef = 66CC4B8B18EB5F1F00342911 /* backLeg.png */; };
+		66CC4B9318EB5F1F00342911 /* body.png in Resources */ = {isa = PBXBuildFile; fileRef = 66CC4B8C18EB5F1F00342911 /* body.png */; };
+		66CC4B9418EB5F1F00342911 /* frontArm.png in Resources */ = {isa = PBXBuildFile; fileRef = 66CC4B8D18EB5F1F00342911 /* frontArm.png */; };
+		66CC4B9518EB5F1F00342911 /* frontLeg.png in Resources */ = {isa = PBXBuildFile; fileRef = 66CC4B8E18EB5F1F00342911 /* frontLeg.png */; };
+		66CC4B9618EB5F1F00342911 /* jaw.png in Resources */ = {isa = PBXBuildFile; fileRef = 66CC4B8F18EB5F1F00342911 /* jaw.png */; };
+		66CC4B9818EB62EE00342911 /* frontEar.png in Resources */ = {isa = PBXBuildFile; fileRef = 66CC4B9718EB62EE00342911 /* frontEar.png */; };
+		66E66E8A18EB6AA60084B751 /* hook.png in Resources */ = {isa = PBXBuildFile; fileRef = 66E66E8918EB6AA60084B751 /* hook.png */; };
 		66F3000018D0024D00C656C5 /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F3FFFA18D0024D00C656C5 /* SKTAudio.m */; };
 		66F3000118D0024D00C656C5 /* SKTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66F3FFFC18D0024D00C656C5 /* SKTUtils.mm */; };
 		66F3FFFD18D0024D00C656C5 /* SKAction+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F3FFF418D0024D00C656C5 /* SKAction+SKTExtras.m */; };
@@ -65,6 +74,15 @@
 		664F74D718CFAC710038EFF7 /* PortballTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PortballTests-Info.plist"; sourceTree = "<group>"; };
 		664F74D918CFAC710038EFF7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		664F74DB18CFAC710038EFF7 /* PortballTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PortballTests.m; sourceTree = "<group>"; };
+		66CC4B8918EB5F1F00342911 /* backArm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backArm.png; sourceTree = "<group>"; };
+		66CC4B8A18EB5F1F00342911 /* backEar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backEar.png; sourceTree = "<group>"; };
+		66CC4B8B18EB5F1F00342911 /* backLeg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backLeg.png; sourceTree = "<group>"; };
+		66CC4B8C18EB5F1F00342911 /* body.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = body.png; sourceTree = "<group>"; };
+		66CC4B8D18EB5F1F00342911 /* frontArm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frontArm.png; sourceTree = "<group>"; };
+		66CC4B8E18EB5F1F00342911 /* frontLeg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frontLeg.png; sourceTree = "<group>"; };
+		66CC4B8F18EB5F1F00342911 /* jaw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jaw.png; sourceTree = "<group>"; };
+		66CC4B9718EB62EE00342911 /* frontEar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frontEar.png; sourceTree = "<group>"; };
+		66E66E8918EB6AA60084B751 /* hook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hook.png; sourceTree = "<group>"; };
 		66F3FFF318D0024D00C656C5 /* SKAction+SKTExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKAction+SKTExtras.h"; sourceTree = "<group>"; };
 		66F3FFF418D0024D00C656C5 /* SKAction+SKTExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKAction+SKTExtras.m"; sourceTree = "<group>"; };
 		66F3FFF518D0024D00C656C5 /* SKEmitterNode+SKTExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKEmitterNode+SKTExtras.h"; sourceTree = "<group>"; };
@@ -182,6 +200,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		66CC4B8818EB5F1200342911 /* bunny */ = {
+			isa = PBXGroup;
+			children = (
+				66CC4B8918EB5F1F00342911 /* backArm.png */,
+				66CC4B8A18EB5F1F00342911 /* backEar.png */,
+				66CC4B8B18EB5F1F00342911 /* backLeg.png */,
+				66CC4B8C18EB5F1F00342911 /* body.png */,
+				66CC4B8D18EB5F1F00342911 /* frontArm.png */,
+				66E66E8918EB6AA60084B751 /* hook.png */,
+				66CC4B9718EB62EE00342911 /* frontEar.png */,
+				66CC4B8E18EB5F1F00342911 /* frontLeg.png */,
+				66CC4B8F18EB5F1F00342911 /* jaw.png */,
+			);
+			name = bunny;
+			sourceTree = "<group>";
+		};
 		66F3FFF218D0024D00C656C5 /* SKTUtils */ = {
 			isa = PBXGroup;
 			children = (
@@ -202,6 +236,7 @@
 		C3DAEA4018EAE65000BA6839 /* Art */ = {
 			isa = PBXGroup;
 			children = (
+				66CC4B8818EB5F1200342911 /* bunny */,
 				C3DAEA4118EAE65000BA6839 /* bg */,
 				C3DAEA4318EAE65000BA6839 /* sprites.atlas */,
 			);
@@ -292,11 +327,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66CC4B9618EB5F1F00342911 /* jaw.png in Resources */,
 				C3DAEA4518EAE65000BA6839 /* sprites.atlas in Resources */,
+				66CC4B9518EB5F1F00342911 /* frontLeg.png in Resources */,
+				66CC4B9118EB5F1F00342911 /* backEar.png in Resources */,
+				66CC4B9318EB5F1F00342911 /* body.png in Resources */,
 				664F74B618CFAC710038EFF7 /* InfoPlist.strings in Resources */,
 				C3DAEA4418EAE65000BA6839 /* background.png in Resources */,
 				664F74C918CFAC710038EFF7 /* Images.xcassets in Resources */,
+<<<<<<< HEAD
+				828FE2C518D8CB92007A9463 /* Sansation_Regular.ttf in Resources */,
+=======
+				66CC4B9418EB5F1F00342911 /* frontArm.png in Resources */,
+>>>>>>> quincy
 				664F74BF18CFAC710038EFF7 /* Main.storyboard in Resources */,
+				66E66E8A18EB6AA60084B751 /* hook.png in Resources */,
+				66CC4B9018EB5F1F00342911 /* backArm.png in Resources */,
+				66CC4B9218EB5F1F00342911 /* backLeg.png in Resources */,
+				66CC4B9818EB62EE00342911 /* frontEar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
