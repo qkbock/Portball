@@ -21,7 +21,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     CNPhysicsCategoryFloor  = 1 << 1,
     CNPhysicsCategoryEnemy  = 1 << 2,
     CNPhysicsCategoryFriend = 1 << 3,
-    // CNPhysicsCategoryShelf  = 1 << 4,
+    CNPhysicsCategoryShelf  = 1 << 4,
     CNPhysicsCategoryWhite  = 1 << 5,
     CNPhysicsCategoryBlack  = 1 << 6,
     CNPhysicsCategoryBunny  = 1 << 7,
@@ -131,7 +131,8 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 -(void)spawnObstacle
 {
     //pick position
-    CGPoint position = CGPointMake(self.size.width, self.size.height*drand48());
+    CGPoint position = CGPointMake(self.size.width, self.size.height*drand48() + 20);
+    CGPoint shelfPos = CGPointMake(self.size.width + 30, 20);
     
     //pick a thing to draw
     double r = arc4random_uniform(3);
@@ -145,12 +146,11 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
         // NSLog(@"1");
         [self spawnEnemy:position];
     }
-    /*
+
     if (r >= 2) {
         // NSLog(@"2");
-        [self spawnShelf:position];
+        [self spawnShelf:shelfPos];
     }
-    */
     
 }
 
@@ -245,7 +245,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 -(void)spawnFriend:(CGPoint)position
 {
     //with an image
-    SKSpriteNode* _friend = [SKSpriteNode spriteNodeWithImageNamed:@"friend"];
+    SKSpriteNode* _friend = [SKSpriteNode spriteNodeWithImageNamed:@"swallow1"];
     _friend.position = position;
     
     _friend.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:_friend.size.width/2];
@@ -263,7 +263,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 -(void)spawnEnemy:(CGPoint)position
 {
     //with an image
-    SKSpriteNode* _enemy = [SKSpriteNode spriteNodeWithImageNamed:@"enemy"];
+    SKSpriteNode* _enemy = [SKSpriteNode spriteNodeWithImageNamed:@"holyHandGrenade"];
     _enemy.position = position;
     
     _enemy.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:_enemy.size.width/2];
@@ -278,14 +278,13 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 
 //--------------------------------------------------------------------------
 
-/*
 -(void)spawnShelf:(CGPoint)position
 {
     //with an image
-    SKSpriteNode* _shelf = [SKSpriteNode spriteNodeWithImageNamed:@"shelf"];
+    SKSpriteNode* _shelf = [SKSpriteNode spriteNodeWithImageNamed:@"shrubbery1"];
     _shelf.position = position;
     
-    _shelf.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize: CGSizeMake(_shelf.size.width-2, _shelf.size.height-2)];
+    _shelf.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:_shelf.size.width/2];
     _shelf.name = @"shelf";
     
     _shelf.physicsBody.categoryBitMask = CNPhysicsCategoryShelf;
@@ -294,7 +293,6 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     //add it to a layer??
     [self addChild:_shelf];
 }
-*/
 
 //Aero: Fixed bunny sandbox, not perfect. Please don't touch the code. Add seperate sandbox. And please add the tail (missing png).
 -(void)spawnBunny:(CGPoint)position
@@ -519,26 +517,34 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     [self enumerateChildNodesWithName:@"friend"
                            usingBlock:^(SKNode *node, BOOL *stop){
                                SKSpriteNode *_friend = (SKSpriteNode *)node;
-                               _friend.position = CGPointMake(_friend.position.x - 2, _friend.position.y);
+                               CGPoint friendVelocity = CGPointMake(-BG_SPEED*3, 0);
+                               CGPoint amtToMove = CGPointMultiplyScalar(friendVelocity, _dt);
+                               _friend.position = CGPointAdd(_friend.position, amtToMove);
                                if (_friend.position.x < 0) {
                                    [_friend removeFromParent];
                                }
                            }];
     [self enumerateChildNodesWithName:@"enemy"
                            usingBlock:^(SKNode *node, BOOL *stop){
-                               SKSpriteNode *_friend = (SKSpriteNode *)node;
-                               _friend.position = CGPointMake(_friend.position.x - 2, _friend.position.y);
-                               if (_friend.position.x < 0) {
-                                   [_friend removeFromParent];
+                               SKSpriteNode *_enemy = (SKSpriteNode *)node;
+                               CGPoint enemyVelocity = CGPointMake(-BG_SPEED*2, 0);
+                               CGPoint amtToMove = CGPointMultiplyScalar(enemyVelocity, _dt);
+                               _enemy.position = CGPointAdd(_enemy.position, amtToMove);
+                               if (_enemy.position.x < 0) {
+                                   [_enemy removeFromParent];
                                }
                            }];
-    /*
+
     [self enumerateChildNodesWithName:@"shelf"
                            usingBlock:^(SKNode *node, BOOL *stop){
                                SKSpriteNode *_shelf = (SKSpriteNode *)node;
-                               _shelf.position = CGPointMake(_shelf.position.x - 2, _shelf.position.y);
+                               CGPoint shelfVelocity = CGPointMake(-BG_SPEED, 0);
+                               CGPoint amtToMove = CGPointMultiplyScalar(shelfVelocity, _dt);
+                               _shelf.position = CGPointAdd(_shelf.position, amtToMove);
+                               if (_shelf.position.x < 0) {
+                                   [_shelf removeFromParent];
+                               }
                            }];
-    */
     [self moveBG];
 }
 
