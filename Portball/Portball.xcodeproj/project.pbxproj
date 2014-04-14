@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6632B5CC18FC85B9006A6DD4 /* fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6632B5CB18FC85B9006A6DD4 /* fire.sks */; };
+		6632B5CF18FC8CF3006A6DD4 /* for now.m in Sources */ = {isa = PBXBuildFile; fileRef = 6632B5CE18FC8CF3006A6DD4 /* for now.m */; };
 		664F74AA18CFAC710038EFF7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664F74A918CFAC710038EFF7 /* Foundation.framework */; };
 		664F74AC18CFAC710038EFF7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664F74AB18CFAC710038EFF7 /* CoreGraphics.framework */; };
 		664F74AE18CFAC710038EFF7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664F74AD18CFAC710038EFF7 /* UIKit.framework */; };
@@ -57,6 +58,8 @@
 
 /* Begin PBXFileReference section */
 		6632B5CB18FC85B9006A6DD4 /* fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = fire.sks; sourceTree = "<group>"; };
+		6632B5CD18FC8CF3006A6DD4 /* for now.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "for now.h"; sourceTree = "<group>"; };
+		6632B5CE18FC8CF3006A6DD4 /* for now.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "for now.m"; sourceTree = "<group>"; };
 		664F74A618CFAC710038EFF7 /* Portball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Portball.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		664F74A918CFAC710038EFF7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		664F74AB18CFAC710038EFF7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -173,6 +176,8 @@
 				664F74C118CFAC710038EFF7 /* ViewController.m */,
 				664F74C318CFAC710038EFF7 /* MyScene.h */,
 				664F74C418CFAC710038EFF7 /* MyScene.m */,
+				6632B5CD18FC8CF3006A6DD4 /* for now.h */,
+				6632B5CE18FC8CF3006A6DD4 /* for now.m */,
 				664F74C818CFAC710038EFF7 /* Images.xcassets */,
 				C3DAEA4018EAE65000BA6839 /* Art */,
 				664F74B218CFAC710038EFF7 /* Supporting Files */,
@@ -392,6 +397,7 @@
 				664F74BC18CFAC710038EFF7 /* AppDelegate.m in Sources */,
 				66F3FFFF18D0024D00C656C5 /* SKNode+SKTExtras.m in Sources */,
 				664F74B818CFAC710038EFF7 /* main.m in Sources */,
+				6632B5CF18FC8CF3006A6DD4 /* for now.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
