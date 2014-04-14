@@ -25,6 +25,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     CNPhysicsCategoryWhite  = 1 << 5,
     CNPhysicsCategoryBlack  = 1 << 6,
     CNPhysicsCategoryBunny  = 1 << 7,
+    CNPhysicsCategoryBtn    = 1 << 8,
 };
 
 @interface MyScene()<SKPhysicsContactDelegate>
@@ -39,10 +40,12 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     SKSpriteNode *_whiteHole;
     SKSpriteNode *_blackHole;
     CGPoint _touchLocation;
+    CGFloat _score;
     NSTimeInterval _lastUpdateTime;
     NSTimeInterval _dt;
     BOOL isWhite;
     BOOL isBlack;
+    BOOL gamePlay;
     int counter;
 }
 
@@ -64,24 +67,18 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 
 - (void)initializeScene
 {
-    isWhite = NO;
-    isBlack = NO;
-    counter = 0;
-    CGPoint position = CGPointMake(40, 360);
-    self.physicsWorld.gravity = CGVectorMake(0, -2);
-    self.physicsBody = [SKPhysicsBody bodyWithEdgeFromPoint:CGPointMake(-100, 0) toPoint:CGPointMake(700, 0)];
-    for (int i = 0; i < 2; i++) {
-        SKSpriteNode* bg = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
-        bg.anchorPoint = CGPointZero;
-        bg.position = CGPointMake(i * bg.size.width, 0);
-        bg.name = @"bg";
-        [self addChild: bg];
-    }
-    self.physicsWorld.contactDelegate = self;
-    self.physicsBody.categoryBitMask = CNPhysicsCategoryFloor;
-    _portalNode = [SKNode node];
-    [self addChild:_portalNode];
-    [self spawnBall: position];
+    
+    SKSpriteNode* _startBackground = [SKSpriteNode spriteNodeWithImageNamed:@"background_start"];
+    _startBackground.position = CGPointMake(self.size.width/2, self.size.height/2);
+    [self addChild:_startBackground];
+    SKSpriteNode* _startButton = [SKSpriteNode spriteNodeWithImageNamed:@"startButton"];
+    _startButton.position = CGPointMake(self.size.width/2, self.size.height/2);
+    _startButton.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(_startButton.size.width/2, _startButton.size.height/2)];
+    _startButton.physicsBody.dynamic = NO;
+    _startButton.name = @"start";
+    _startButton.physicsBody.categoryBitMask = CNPhysicsCategoryBtn;
+    _startButton.physicsBody.collisionBitMask = kNilOptions;
+    [self addChild:_startButton];
 }
 
 -(void)moveBG
@@ -160,13 +157,16 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 {
     UITouch *touch = [touches anyObject];
     _touchLocation = [touch locationInNode:self];
+    CGPoint location = [touch locationInNode:self];
     // NSLog(@"%@", NSStringFromCGPoint(_touchLocation));
     [self portals:_touchLocation];
-    /* broken to be fixed
-    if (isWhite) {
-        [_whiteHole runAction:[SKAction animateWithTextures:@[[SKTexture textureWithImageNamed:@"white"],[SKTexture textureWithImageNamed:@"white1"],[SKTexture textureWithImageNamed:@"white2"],[SKTexture textureWithImageNamed:@"white3"],[SKTexture textureWithImageNamed:@"white2"],[SKTexture textureWithImageNamed:@"white1"]] timePerFrame:0.15]];
+    if (!gamePlay) {
+        [self.physicsWorld enumerateBodiesAtPoint:location usingBlock:^(SKPhysicsBody *body, BOOL *stop) {
+            if (body.categoryBitMask == CNPhysicsCategoryBtn) {
+                [self reset];
+            }
+        }];
     }
-    */
 //    _bunnyNode.position = CGPointMake(_bunnyNode.position.x, _bunnyNode.position.y +60);
 }
 
@@ -218,10 +218,11 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
         }
     }
     if (collision == (CNPhysicsCategoryBall|CNPhysicsCategoryEnemy)) {
-        NSLog(@"Enemy");
+        [self lose];
     }
     if (collision == (CNPhysicsCategoryBall|CNPhysicsCategoryFriend)) {
-        NSLog(@"Friend");
+        (contact.bodyA.categoryBitMask  == CNPhysicsCategoryFriend)?[contact.bodyA.node removeFromParent]:[contact.bodyB.node removeFromParent];
+        [self increaseScore];
     }
 }
 
@@ -293,8 +294,6 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     //add it to a layer??
     [self addChild:_shelf];
 }
-
-//Aero: Fixed bunny sandbox, not perfect. Please don't touch the code. Add seperate sandbox. And please add the tail (missing png).
 -(void)spawnBunny:(CGPoint)position
 {
     SKSpriteNode *_body = [SKSpriteNode spriteNodeWithImageNamed:@"body"];
@@ -458,6 +457,60 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     SKPhysicsJointFixed *_mountBunny = [SKPhysicsJointFixed jointWithBodyA:_body.physicsBody bodyB:_ballNode.physicsBody anchor:position];
     [self.physicsWorld addJoint:_mountBunny];
 }
+-(void)lose
+{
+    gamePlay = NO;
+    [self removeAllChildren];
+    SKSpriteNode* _loseBackground = [SKSpriteNode spriteNodeWithImageNamed:@"background_lose"];
+    _loseBackground.position = CGPointMake(self.size.width/2, self.size.height/2);
+    [self addChild:_loseBackground];
+    SKSpriteNode* _loseButton = [SKSpriteNode spriteNodeWithImageNamed:@"loseButton"];
+    _loseButton.position = CGPointMake(self.size.width/2, self.size.height/2);
+    _loseButton.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(_loseButton.size.width/2, _loseButton.size.height/2)];
+    _loseButton.physicsBody.dynamic = NO;
+    _loseButton.name = @"lose";
+    _loseButton.physicsBody.categoryBitMask = CNPhysicsCategoryBtn;
+    _loseButton.physicsBody.collisionBitMask = kNilOptions;
+    [self addChild:_loseButton];
+}
+-(void)reset
+{
+    gamePlay = YES;
+    isWhite = NO;
+    isBlack = NO;
+    counter = 0;
+    
+    SKLabelNode *scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Bebas"];
+    scoreLabel.fontSize = 20.0;
+    scoreLabel.text = @"Score: 0";
+    scoreLabel.name = @"scoreLabel";
+    scoreLabel.fontColor = [SKColor colorWithRed:0 green:0 blue:0 alpha:1.0];
+//    scoreLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeCenter;
+    scoreLabel.position = CGPointMake(scoreLabel.frame.size.width, self.size.height - scoreLabel.frame.size.height*2);
+    
+    CGPoint position = CGPointMake(40, 360);
+    self.physicsWorld.gravity = CGVectorMake(0, -2);
+    self.physicsBody = [SKPhysicsBody bodyWithEdgeFromPoint:CGPointMake(-100, 0) toPoint:CGPointMake(700, 0)];
+    for (int i = 0; i < 2; i++) {
+        SKSpriteNode* bg = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
+        bg.anchorPoint = CGPointZero;
+        bg.position = CGPointMake(i * bg.size.width, 0);
+        bg.name = @"bg";
+        [self addChild: bg];
+    }
+    self.physicsWorld.contactDelegate = self;
+    self.physicsBody.categoryBitMask = CNPhysicsCategoryFloor;
+    _portalNode = [SKNode node];
+    [self addChild:_portalNode];
+    [self spawnBall: position];
+    [self addChild:scoreLabel];
+}
+- (void)increaseScore
+{
+    _score += 1;
+    SKLabelNode *scoreLabel = (SKLabelNode*)[self childNodeWithName:@"scoreLabel"];
+    scoreLabel.text = [NSString stringWithFormat:@"Score: %1.0f", _score];
+}
 //--------------------------------------------------------------------------
 -(void)update:(CFTimeInterval)currentTime
 {
@@ -469,7 +522,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     }
     _lastUpdateTime = currentTime;
     
-    if (counter > 50) {
+    if (counter > 50 && gamePlay) {
         [self spawnObstacle];
         if (_ballNode.physicsBody.angularVelocity != 0) {
             [_ballNode.physicsBody applyAngularImpulse: -_ballNode.physicsBody.angularVelocity/10];
@@ -513,7 +566,11 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 //            }
 //        }
 //    });
-    
+    [self creatures];
+    [self moveBG];
+}
+
+-(void)creatures {
     [self enumerateChildNodesWithName:@"friend"
                            usingBlock:^(SKNode *node, BOOL *stop){
                                SKSpriteNode *_friend = (SKSpriteNode *)node;
@@ -534,7 +591,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
                                    [_enemy removeFromParent];
                                }
                            }];
-
+    
     [self enumerateChildNodesWithName:@"shelf"
                            usingBlock:^(SKNode *node, BOOL *stop){
                                SKSpriteNode *_shelf = (SKSpriteNode *)node;
@@ -544,10 +601,8 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
                                if (_shelf.position.x < 0) {
                                    [_shelf removeFromParent];
                                }
-                           }];
-    [self moveBG];
+                               }];
 }
-
 
 //--------------------------------------------------------------------------
 

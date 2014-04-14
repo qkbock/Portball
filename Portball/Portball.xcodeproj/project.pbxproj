@@ -28,6 +28,9 @@
 		66F3FFFD18D0024D00C656C5 /* SKAction+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F3FFF418D0024D00C656C5 /* SKAction+SKTExtras.m */; };
 		66F3FFFE18D0024D00C656C5 /* SKEmitterNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F3FFF618D0024D00C656C5 /* SKEmitterNode+SKTExtras.m */; };
 		66F3FFFF18D0024D00C656C5 /* SKNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F3FFF818D0024D00C656C5 /* SKNode+SKTExtras.m */; };
+		82E6ECBC18FC89EA00D57C79 /* background_lose.png in Resources */ = {isa = PBXBuildFile; fileRef = 82E6ECBB18FC89EA00D57C79 /* background_lose.png */; };
+		82E6ECBE18FC8EF900D57C79 /* background_start.png in Resources */ = {isa = PBXBuildFile; fileRef = 82E6ECBD18FC8EF900D57C79 /* background_start.png */; };
+		82E6ECC118FC921A00D57C79 /* font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 82E6ECC018FC921A00D57C79 /* font.ttf */; };
 		C3DAEA4418EAE65000BA6839 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DAEA4218EAE65000BA6839 /* background.png */; };
 		C3DAEA4518EAE65000BA6839 /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = C3DAEA4318EAE65000BA6839 /* sprites.atlas */; };
 /* End PBXBuildFile section */
@@ -75,6 +78,9 @@
 		66F3FFFA18D0024D00C656C5 /* SKTAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTAudio.m; sourceTree = "<group>"; };
 		66F3FFFB18D0024D00C656C5 /* SKTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTUtils.h; sourceTree = "<group>"; };
 		66F3FFFC18D0024D00C656C5 /* SKTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTUtils.mm; sourceTree = "<group>"; };
+		82E6ECBB18FC89EA00D57C79 /* background_lose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_lose.png; sourceTree = "<group>"; };
+		82E6ECBD18FC8EF900D57C79 /* background_start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_start.png; sourceTree = "<group>"; };
+		82E6ECC018FC921A00D57C79 /* font.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font.ttf; sourceTree = "<group>"; };
 		C3DAEA4218EAE65000BA6839 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		C3DAEA4318EAE65000BA6839 /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -138,6 +144,7 @@
 		664F74B118CFAC710038EFF7 /* Portball */ = {
 			isa = PBXGroup;
 			children = (
+				82E6ECBF18FC921A00D57C79 /* Font */,
 				66F3FFF218D0024D00C656C5 /* SKTUtils */,
 				664F74BA18CFAC710038EFF7 /* AppDelegate.h */,
 				664F74BB18CFAC710038EFF7 /* AppDelegate.m */,
@@ -199,6 +206,14 @@
 			path = SKTUtils;
 			sourceTree = "<group>";
 		};
+		82E6ECBF18FC921A00D57C79 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				82E6ECC018FC921A00D57C79 /* font.ttf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
 		C3DAEA4018EAE65000BA6839 /* Art */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +226,8 @@
 		C3DAEA4118EAE65000BA6839 /* bg */ = {
 			isa = PBXGroup;
 			children = (
+				82E6ECBD18FC8EF900D57C79 /* background_start.png */,
+				82E6ECBB18FC89EA00D57C79 /* background_lose.png */,
 				C3DAEA4218EAE65000BA6839 /* background.png */,
 			);
 			path = bg;
@@ -292,9 +309,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82E6ECBC18FC89EA00D57C79 /* background_lose.png in Resources */,
 				C3DAEA4518EAE65000BA6839 /* sprites.atlas in Resources */,
 				664F74B618CFAC710038EFF7 /* InfoPlist.strings in Resources */,
+				82E6ECC118FC921A00D57C79 /* font.ttf in Resources */,
 				C3DAEA4418EAE65000BA6839 /* background.png in Resources */,
+				82E6ECBE18FC8EF900D57C79 /* background_start.png in Resources */,
 				664F74C918CFAC710038EFF7 /* Images.xcassets in Resources */,
 				664F74BF18CFAC710038EFF7 /* Main.storyboard in Resources */,
 			);

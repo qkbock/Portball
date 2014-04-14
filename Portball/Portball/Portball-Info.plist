@@ -39,7 +39,7 @@
 	</array>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Sansation_Regular.ttf</string>
+		<string>font.ttf</string>
 	</array>
 </dict>
 </plist>
