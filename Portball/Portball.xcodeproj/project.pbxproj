@@ -23,6 +23,10 @@
 		664F74D218CFAC710038EFF7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664F74AD18CFAC710038EFF7 /* UIKit.framework */; };
 		664F74DA18CFAC710038EFF7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 664F74D818CFAC710038EFF7 /* InfoPlist.strings */; };
 		664F74DC18CFAC710038EFF7 /* PortballTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 664F74DB18CFAC710038EFF7 /* PortballTests.m */; };
+		668BAC5F18F7230F00BECAD0 /* blood.sks in Resources */ = {isa = PBXBuildFile; fileRef = 668BAC5D18F7230F00BECAD0 /* blood.sks */; };
+		668BAC6018F7230F00BECAD0 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 668BAC5E18F7230F00BECAD0 /* spark.png */; };
+		668BAC6218F723F000BECAD0 /* tail.png in Resources */ = {isa = PBXBuildFile; fileRef = 668BAC6118F723F000BECAD0 /* tail.png */; };
+		66967E5418F0F72100F781B5 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 66967E5318F0F72100F781B5 /* bg.png */; };
 		66CC4B9018EB5F1F00342911 /* backArm.png in Resources */ = {isa = PBXBuildFile; fileRef = 66CC4B8918EB5F1F00342911 /* backArm.png */; };
 		66CC4B9118EB5F1F00342911 /* backEar.png in Resources */ = {isa = PBXBuildFile; fileRef = 66CC4B8A18EB5F1F00342911 /* backEar.png */; };
 		66CC4B9218EB5F1F00342911 /* backLeg.png in Resources */ = {isa = PBXBuildFile; fileRef = 66CC4B8B18EB5F1F00342911 /* backLeg.png */; };
@@ -37,7 +41,6 @@
 		66F3FFFD18D0024D00C656C5 /* SKAction+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F3FFF418D0024D00C656C5 /* SKAction+SKTExtras.m */; };
 		66F3FFFE18D0024D00C656C5 /* SKEmitterNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F3FFF618D0024D00C656C5 /* SKEmitterNode+SKTExtras.m */; };
 		66F3FFFF18D0024D00C656C5 /* SKNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F3FFF818D0024D00C656C5 /* SKNode+SKTExtras.m */; };
-		C3DAEA4418EAE65000BA6839 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DAEA4218EAE65000BA6839 /* background.png */; };
 		C3DAEA4518EAE65000BA6839 /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = C3DAEA4318EAE65000BA6839 /* sprites.atlas */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +77,10 @@
 		664F74D718CFAC710038EFF7 /* PortballTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PortballTests-Info.plist"; sourceTree = "<group>"; };
 		664F74D918CFAC710038EFF7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		664F74DB18CFAC710038EFF7 /* PortballTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PortballTests.m; sourceTree = "<group>"; };
+		668BAC5D18F7230F00BECAD0 /* blood.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = blood.sks; sourceTree = "<group>"; };
+		668BAC5E18F7230F00BECAD0 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		668BAC6118F723F000BECAD0 /* tail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tail.png; sourceTree = "<group>"; };
+		66967E5318F0F72100F781B5 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		66CC4B8918EB5F1F00342911 /* backArm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backArm.png; sourceTree = "<group>"; };
 		66CC4B8A18EB5F1F00342911 /* backEar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backEar.png; sourceTree = "<group>"; };
 		66CC4B8B18EB5F1F00342911 /* backLeg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backLeg.png; sourceTree = "<group>"; };
@@ -93,7 +100,6 @@
 		66F3FFFA18D0024D00C656C5 /* SKTAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTAudio.m; sourceTree = "<group>"; };
 		66F3FFFB18D0024D00C656C5 /* SKTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTUtils.h; sourceTree = "<group>"; };
 		66F3FFFC18D0024D00C656C5 /* SKTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTUtils.mm; sourceTree = "<group>"; };
-		C3DAEA4218EAE65000BA6839 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		C3DAEA4318EAE65000BA6839 /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -156,6 +162,7 @@
 		664F74B118CFAC710038EFF7 /* Portball */ = {
 			isa = PBXGroup;
 			children = (
+				668BAC5C18F722ED00BECAD0 /* Particles */,
 				66F3FFF218D0024D00C656C5 /* SKTUtils */,
 				664F74BA18CFAC710038EFF7 /* AppDelegate.h */,
 				664F74BB18CFAC710038EFF7 /* AppDelegate.m */,
@@ -200,6 +207,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		668BAC5C18F722ED00BECAD0 /* Particles */ = {
+			isa = PBXGroup;
+			children = (
+				668BAC5D18F7230F00BECAD0 /* blood.sks */,
+				668BAC5E18F7230F00BECAD0 /* spark.png */,
+			);
+			name = Particles;
+			sourceTree = "<group>";
+		};
 		66CC4B8818EB5F1200342911 /* bunny */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +224,7 @@
 				66CC4B8B18EB5F1F00342911 /* backLeg.png */,
 				66CC4B8C18EB5F1F00342911 /* body.png */,
 				66CC4B8D18EB5F1F00342911 /* frontArm.png */,
+				668BAC6118F723F000BECAD0 /* tail.png */,
 				66E66E8918EB6AA60084B751 /* hook.png */,
 				66CC4B9718EB62EE00342911 /* frontEar.png */,
 				66CC4B8E18EB5F1F00342911 /* frontLeg.png */,
@@ -246,7 +263,7 @@
 		C3DAEA4118EAE65000BA6839 /* bg */ = {
 			isa = PBXGroup;
 			children = (
-				C3DAEA4218EAE65000BA6839 /* background.png */,
+				66967E5318F0F72100F781B5 /* bg.png */,
 			);
 			path = bg;
 			sourceTree = "<group>";
@@ -329,16 +346,19 @@
 			files = (
 				66CC4B9618EB5F1F00342911 /* jaw.png in Resources */,
 				C3DAEA4518EAE65000BA6839 /* sprites.atlas in Resources */,
+				668BAC5F18F7230F00BECAD0 /* blood.sks in Resources */,
+				668BAC6218F723F000BECAD0 /* tail.png in Resources */,
 				66CC4B9518EB5F1F00342911 /* frontLeg.png in Resources */,
 				66CC4B9118EB5F1F00342911 /* backEar.png in Resources */,
+				66967E5418F0F72100F781B5 /* bg.png in Resources */,
 				66CC4B9318EB5F1F00342911 /* body.png in Resources */,
 				664F74B618CFAC710038EFF7 /* InfoPlist.strings in Resources */,
-				C3DAEA4418EAE65000BA6839 /* background.png in Resources */,
 				664F74C918CFAC710038EFF7 /* Images.xcassets in Resources */,
 				66CC4B9418EB5F1F00342911 /* frontArm.png in Resources */,
 				664F74BF18CFAC710038EFF7 /* Main.storyboard in Resources */,
 				66E66E8A18EB6AA60084B751 /* hook.png in Resources */,
 				66CC4B9018EB5F1F00342911 /* backArm.png in Resources */,
+				668BAC6018F7230F00BECAD0 /* spark.png in Resources */,
 				66CC4B9218EB5F1F00342911 /* backLeg.png in Resources */,
 				66CC4B9818EB62EE00342911 /* frontEar.png in Resources */,
 			);

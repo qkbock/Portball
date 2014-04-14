@@ -37,10 +37,12 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     SKSpriteNode *_whiteHole;
     SKSpriteNode *_blackHole;
 //    SKShapeNode *_ball;
+    SKEmitterNode *_bloodEmitter;
     SKNode *_bgLayer;
     SKNode *_portalNode;
     SKNode *_ballNode;
     SKNode *_bunnyNode;
+    SKSpriteNode *_jaw;
     CGPoint _touchLocation;
     NSTimeInterval _lastUpdateTime;
     NSTimeInterval _dt;
@@ -72,7 +74,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     counter = 0;
     self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
     for (int i = 0; i < 2; i++) {
-        SKSpriteNode* bg = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
+        SKSpriteNode* bg = [SKSpriteNode spriteNodeWithImageNamed:@"bg"];
         bg.anchorPoint = CGPointZero;
         bg.position = CGPointMake(i * bg.size.width, 0);
         bg.name = @"bg";
@@ -161,18 +163,32 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 
 //--------------------------------------------------------------------------
 
+-(void)makeBlood:(CGPoint)position
+{
+    _bloodEmitter =
+    [NSKeyedUnarchiver unarchiveObjectWithFile: [[NSBundle mainBundle] pathForResource:@"blood"
+                                                                                ofType:@"sks"]];
+    _bloodEmitter.position = position;
+    _bloodEmitter.name = @"ventingPlasma";
+    [self addChild:_bloodEmitter];
+}
+
+//--------------------------------------------------------------------------
+
+
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
     _touchLocation = [touch locationInNode:self];
     // NSLog(@"%@", NSStringFromCGPoint(_touchLocation));
-    [self portals:_touchLocation];
+//    [self portals:_touchLocation];
     /* broken to be fixed
     if (isWhite) {
         [_whiteHole runAction:[SKAction animateWithTextures:@[[SKTexture textureWithImageNamed:@"white"],[SKTexture textureWithImageNamed:@"white1"],[SKTexture textureWithImageNamed:@"white2"],[SKTexture textureWithImageNamed:@"white3"],[SKTexture textureWithImageNamed:@"white2"],[SKTexture textureWithImageNamed:@"white1"]] timePerFrame:0.15]];
     }
     */
 //    _bunnyNode.position = CGPointMake(_bunnyNode.position.x, _bunnyNode.position.y +60);
+    [self makeBlood:_jaw.position];
 }
 
 -(void)portals:(CGPoint)position
@@ -222,6 +238,13 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
             isBlack = NO;
             
         }
+    }
+    if (collision == (CNPhysicsCategoryBall|CNPhysicsCategoryEnemy)) {
+        NSLog(@"Enemy");
+    }
+    if (collision == (CNPhysicsCategoryBall|CNPhysicsCategoryFriend)) {
+        NSLog(@"Friend");
+        [self makeBlood:_ballNode.position];
     }
 }
 
@@ -292,7 +315,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     SKSpriteNode *_frontArm = [SKSpriteNode spriteNodeWithImageNamed:@"frontArm"];
     SKSpriteNode *_frontEar = [SKSpriteNode spriteNodeWithImageNamed:@"frontEar"];
     SKSpriteNode *_frontLeg = [SKSpriteNode spriteNodeWithImageNamed:@"frontLeg"];
-    SKSpriteNode *_jaw = [SKSpriteNode spriteNodeWithImageNamed:@"jaw"];
+    _jaw = [SKSpriteNode spriteNodeWithImageNamed:@"jaw"];
     
 //    SKSpriteNode *_earSpringHook = [SKSpriteNode spriteNodeWithImageNamed:@"hook"];
     SKNode *_earSpringHook = [SKNode node];
