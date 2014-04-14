@@ -244,9 +244,23 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     }
     if (collision == (CNPhysicsCategoryBall|CNPhysicsCategoryFriend)) {
         NSLog(@"Friend");
-        [self makeBlood:_ballNode.position];
+//        [self makeBlood:_ballNode.position];
     }
 }
+
+
+//--------------------------------------------------------------------------
+
+-(void)drawLoseScreen{
+    SKSpriteNode* _loseBackground = [SKSpriteNode spriteNodeWithImageNamed:@"loseBackground"];
+    _loseBackground.position = CGPointMake(self.size.width/2, self.size.height/2);
+    SKSpriteNode* _loseButton = [SKSpriteNode spriteNodeWithImageNamed:@"loseButton"];
+    _loseButton.position = CGPointMake(self.size.width/2, self.size.height/2);
+    
+    [self addChild:_loseBackground];
+    [self addChild:_loseButton];
+}
+
 
 //--------------------------------------------------------------------------
 

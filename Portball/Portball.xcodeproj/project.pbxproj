@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6632B5CC18FC85B9006A6DD4 /* fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6632B5CB18FC85B9006A6DD4 /* fire.sks */; };
 		664F74AA18CFAC710038EFF7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664F74A918CFAC710038EFF7 /* Foundation.framework */; };
 		664F74AC18CFAC710038EFF7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664F74AB18CFAC710038EFF7 /* CoreGraphics.framework */; };
 		664F74AE18CFAC710038EFF7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664F74AD18CFAC710038EFF7 /* UIKit.framework */; };
@@ -55,6 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6632B5CB18FC85B9006A6DD4 /* fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = fire.sks; sourceTree = "<group>"; };
 		664F74A618CFAC710038EFF7 /* Portball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Portball.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		664F74A918CFAC710038EFF7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		664F74AB18CFAC710038EFF7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -211,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				668BAC5D18F7230F00BECAD0 /* blood.sks */,
+				6632B5CB18FC85B9006A6DD4 /* fire.sks */,
 				668BAC5E18F7230F00BECAD0 /* spark.png */,
 			);
 			name = Particles;
@@ -355,6 +358,7 @@
 				664F74B618CFAC710038EFF7 /* InfoPlist.strings in Resources */,
 				664F74C918CFAC710038EFF7 /* Images.xcassets in Resources */,
 				66CC4B9418EB5F1F00342911 /* frontArm.png in Resources */,
+				6632B5CC18FC85B9006A6DD4 /* fire.sks in Resources */,
 				664F74BF18CFAC710038EFF7 /* Main.storyboard in Resources */,
 				66E66E8A18EB6AA60084B751 /* hook.png in Resources */,
 				66CC4B9018EB5F1F00342911 /* backArm.png in Resources */,
