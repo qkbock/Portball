@@ -50,8 +50,6 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     int counter;
 }
 
-//--------------------------------------------------------------------------
-
 -(instancetype)initWithSize:(CGSize)size
 {
     if(self = [super initWithSize:size])
@@ -63,8 +61,6 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     }
     return self;
 }
-
-//--------------------------------------------------------------------------
 
 - (void)initializeScene
 {
@@ -80,6 +76,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     _startButton.physicsBody.categoryBitMask = CNPhysicsCategoryBtn;
     _startButton.physicsBody.collisionBitMask = kNilOptions;
     [self addChild:_startButton];
+    [[SKTAudio sharedInstance] playBackgroundMusic:@"Finder.mp3"];
 }
 
 -(void)moveBG
@@ -96,8 +93,6 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
      }];
 }
 
-//--------------------------------------------------------------------------
-
 -(void)spawnBall:(CGPoint)position
 {
     _ballNode = [SKNode node];
@@ -110,7 +105,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     _ballNode.physicsBody.mass = 20;
     _ballNode.physicsBody.categoryBitMask       = CNPhysicsCategoryBall;
     _ballNode.physicsBody.collisionBitMask      = CNPhysicsCategoryFloor;
-    _ballNode.physicsBody.contactTestBitMask    = CNPhysicsCategoryEnemy | CNPhysicsCategoryFriend;
+    _ballNode.physicsBody.contactTestBitMask    = CNPhysicsCategoryEnemy | CNPhysicsCategoryFriend | CNPhysicsCategoryFloor;
 
     [self addChild:_ballNode];
     //[_ballNode addChild:_ball];
@@ -124,8 +119,6 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 //    [self addChild:_ball];
 }
 
-//--------------------------------------------------------------------------
-
 -(void)spawnObstacle
 {
     //pick position
@@ -136,23 +129,17 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     double r = arc4random_uniform(3);
     
     if (r < 1) {
-        // NSLog(@"0");
         [self spawnFriend:position];
     }
     
     if (r >= 1 && r < 2) {
-        // NSLog(@"1");
         [self spawnEnemy:position];
     }
 
     if (r >= 2) {
-        // NSLog(@"2");
         [self spawnShelf:shelfPos];
     }
-    
 }
-
-//--------------------------------------------------------------------------
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -164,6 +151,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     if (!gamePlay) {
         [self.physicsWorld enumerateBodiesAtPoint:location usingBlock:^(SKPhysicsBody *body, BOOL *stop) {
             if (body.categoryBitMask == CNPhysicsCategoryBtn) {
+                [self runAction:[SKAction playSoundFileNamed:@"Pop.mp3" waitForCompletion:NO]];
                 [self reset];
             }
         }];
@@ -191,18 +179,20 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     _blackHole.physicsBody.collisionBitMask = kNilOptions;
     _blackHole.physicsBody.contactTestBitMask = CNPhysicsCategoryBall;
     if (!isWhite) {
+        [self runAction:[SKAction playSoundFileNamed:@"Pop.mp3" waitForCompletion:NO]];
         [_portalNode addChild:_whiteHole];
         isWhite = YES;
     } else if (!isBlack) {
+        [self runAction:[SKAction playSoundFileNamed:@"Pop.mp3" waitForCompletion:NO]];
         [_portalNode addChild:_blackHole];
         isBlack = YES;
         _blackHole.userData = [@{@"exist":@(YES)} mutableCopy];
     } else {
+        [self runAction:[SKAction playSoundFileNamed:@"Close.mp3" waitForCompletion:NO]];
         [_portalNode removeAllChildren];
         isWhite = NO;
         isBlack = NO;
     }
-    
 }
 
 -(void)didBeginContact:(SKPhysicsContact *)contact
@@ -219,11 +209,11 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
         }
     }
     if (collision == (CNPhysicsCategoryBall|CNPhysicsCategoryEnemy)) {
+        [self runAction:[SKAction playSoundFileNamed:@"Blast.mp3" waitForCompletion:NO]];
         [self lose];
     }
     if (collision == (CNPhysicsCategoryBall|CNPhysicsCategoryFriend)) {
         (contact.bodyA.categoryBitMask  == CNPhysicsCategoryFriend)?[contact.bodyA.node removeFromParent]:[contact.bodyB.node removeFromParent];
-        //MOVE BLOOD
         [self makeBlood:CGPointMake(_ballNode.position.x, _ballNode.position.y)];
         [self increaseScore];
     }
@@ -242,26 +232,24 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
             isBlack = NO;
         }
     }
+    if (collision == (CNPhysicsCategoryBall|CNPhysicsCategoryFloor)) {
+        [self runAction:[SKAction playSoundFileNamed:@"Pluck.mp3" waitForCompletion:NO]];
+    }
 }
-
-//--------------------------------------------------------------------------
 
 -(void)makeBlood:(CGPoint)position
 
 {
-    
-    _bloodEmitter = [NSKeyedUnarchiver unarchiveObjectWithFile: [[NSBundle mainBundle] pathForResource:@"blood"
-                                                                                ofType:@"sks"]];
+    _bloodEmitter = [NSKeyedUnarchiver unarchiveObjectWithFile: [[NSBundle mainBundle] pathForResource:@"blood" ofType:@"sks"]];
     _bloodEmitter.position = position;
     _bloodEmitter.name = @"blood";
     [self addChild:_bloodEmitter];
-    
+    [self runAction:[SKAction playSoundFileNamed:@"Kill.mp3" waitForCompletion:NO]];
 }
 
 
 -(void)spawnFriend:(CGPoint)position
 {
-    //with an image
     SKSpriteNode* _friend = [SKSpriteNode spriteNodeWithImageNamed:@"swallow1"];
     _friend.position = position;
     
@@ -271,15 +259,11 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     _friend.physicsBody.categoryBitMask = CNPhysicsCategoryFriend;
     [_friend.physicsBody setDynamic:NO];
     
-    //add it to a layer??
     [self addChild:_friend];
 }
 
-//--------------------------------------------------------------------------
-
 -(void)spawnEnemy:(CGPoint)position
 {
-    //with an image
     SKSpriteNode* _enemy = [SKSpriteNode spriteNodeWithImageNamed:@"holyHandGrenade"];
     _enemy.position = position;
     
@@ -289,26 +273,37 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     _enemy.physicsBody.categoryBitMask = CNPhysicsCategoryEnemy;
     [_enemy.physicsBody setDynamic:NO];
     
-    //add it to a layer??
     [self addChild:_enemy];
 }
 
-//--------------------------------------------------------------------------
-
 -(void)spawnShelf:(CGPoint)position
 {
-    //with an image
-    SKSpriteNode* _shelf = [SKSpriteNode spriteNodeWithImageNamed:@"shrubbery1"];
-    _shelf.position = position;
-    
-    _shelf.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:_shelf.size.width/2];
-    _shelf.name = @"shelf";
-    
-    _shelf.physicsBody.categoryBitMask = CNPhysicsCategoryShelf;
-    [_shelf.physicsBody setDynamic:NO];
-    
-    //add it to a layer??
-    [self addChild:_shelf];
+    int r = arc4random() % 2;
+    if (r == 0) {
+        SKSpriteNode* _shelf = [SKSpriteNode spriteNodeWithImageNamed:@"shrubbery1"];
+        _shelf.position = position;
+        _shelf.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:_shelf.size.width/2];
+        _shelf.name = @"shelf";
+        _shelf.physicsBody.categoryBitMask = CNPhysicsCategoryShelf;
+        [_shelf.physicsBody setDynamic:NO];
+        [self addChild:_shelf];
+    } else if (r == 1) {
+        SKSpriteNode* _shelf = [SKSpriteNode spriteNodeWithImageNamed:@"shrubbery2"];
+        _shelf.position = position;
+        _shelf.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:_shelf.size.width/2];
+        _shelf.name = @"shelf";
+        _shelf.physicsBody.categoryBitMask = CNPhysicsCategoryShelf;
+        [_shelf.physicsBody setDynamic:NO];
+        [self addChild:_shelf];
+    } else {
+        SKSpriteNode* _shelf = [SKSpriteNode spriteNodeWithImageNamed:@"shrubbery3"];
+        _shelf.position = position;
+        _shelf.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:_shelf.size.width/2];
+        _shelf.name = @"shelf";
+        _shelf.physicsBody.categoryBitMask = CNPhysicsCategoryShelf;
+        [_shelf.physicsBody setDynamic:NO];
+        [self addChild:_shelf];
+    }    
 }
 -(void)spawnBunny:(CGPoint)position
 {
@@ -472,6 +467,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     
     SKPhysicsJointFixed *_mountBunny = [SKPhysicsJointFixed jointWithBodyA:_body.physicsBody bodyB:_ballNode.physicsBody anchor:position];
     [self.physicsWorld addJoint:_mountBunny];
+    [self runAction:[SKAction playSoundFileNamed:@"Portal.mp3" waitForCompletion:NO]];
 }
 -(void)lose
 {
@@ -488,6 +484,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     _loseButton.physicsBody.categoryBitMask = CNPhysicsCategoryBtn;
     _loseButton.physicsBody.collisionBitMask = kNilOptions;
     [self addChild:_loseButton];
+    [self runAction:[SKAction playSoundFileNamed:@"Scream.mp3" waitForCompletion:NO]];
 }
 -(void)reset
 {
@@ -527,7 +524,6 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     SKLabelNode *scoreLabel = (SKLabelNode*)[self childNodeWithName:@"scoreLabel"];
     scoreLabel.text = [NSString stringWithFormat:@"Score: %1.0f", _score];
 }
-//--------------------------------------------------------------------------
 -(void)update:(CFTimeInterval)currentTime
 {
     if (_lastUpdateTime) {
@@ -558,7 +554,6 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     } else {
         counter ++;
     }
-    
 //    int64_t delay = 1.0;
 //    dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
 //    dispatch_after(time, dispatch_get_main_queue(), ^(void){
@@ -619,7 +614,5 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
                                }
                                }];
 }
-
-//--------------------------------------------------------------------------
 
 @end
