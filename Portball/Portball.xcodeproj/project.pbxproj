@@ -31,6 +31,8 @@
 		82E6ECBC18FC89EA00D57C79 /* background_lose.png in Resources */ = {isa = PBXBuildFile; fileRef = 82E6ECBB18FC89EA00D57C79 /* background_lose.png */; };
 		82E6ECBE18FC8EF900D57C79 /* background_start.png in Resources */ = {isa = PBXBuildFile; fileRef = 82E6ECBD18FC8EF900D57C79 /* background_start.png */; };
 		82E6ECC118FC921A00D57C79 /* font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 82E6ECC018FC921A00D57C79 /* font.ttf */; };
+		82E6ECC518FC9CCE00D57C79 /* blood.sks in Resources */ = {isa = PBXBuildFile; fileRef = 82E6ECC318FC9CCE00D57C79 /* blood.sks */; };
+		82E6ECC618FC9CCE00D57C79 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 82E6ECC418FC9CCE00D57C79 /* spark.png */; };
 		C3DAEA4418EAE65000BA6839 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = C3DAEA4218EAE65000BA6839 /* background.png */; };
 		C3DAEA4518EAE65000BA6839 /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = C3DAEA4318EAE65000BA6839 /* sprites.atlas */; };
 /* End PBXBuildFile section */
@@ -81,6 +83,8 @@
 		82E6ECBB18FC89EA00D57C79 /* background_lose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_lose.png; sourceTree = "<group>"; };
 		82E6ECBD18FC8EF900D57C79 /* background_start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_start.png; sourceTree = "<group>"; };
 		82E6ECC018FC921A00D57C79 /* font.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font.ttf; sourceTree = "<group>"; };
+		82E6ECC318FC9CCE00D57C79 /* blood.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = blood.sks; sourceTree = "<group>"; };
+		82E6ECC418FC9CCE00D57C79 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		C3DAEA4218EAE65000BA6839 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		C3DAEA4318EAE65000BA6839 /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -144,6 +148,7 @@
 		664F74B118CFAC710038EFF7 /* Portball */ = {
 			isa = PBXGroup;
 			children = (
+				82E6ECC218FC9CAF00D57C79 /* Particles */,
 				82E6ECBF18FC921A00D57C79 /* Font */,
 				66F3FFF218D0024D00C656C5 /* SKTUtils */,
 				664F74BA18CFAC710038EFF7 /* AppDelegate.h */,
@@ -212,6 +217,15 @@
 				82E6ECC018FC921A00D57C79 /* font.ttf */,
 			);
 			path = Font;
+			sourceTree = "<group>";
+		};
+		82E6ECC218FC9CAF00D57C79 /* Particles */ = {
+			isa = PBXGroup;
+			children = (
+				82E6ECC318FC9CCE00D57C79 /* blood.sks */,
+				82E6ECC418FC9CCE00D57C79 /* spark.png */,
+			);
+			name = Particles;
 			sourceTree = "<group>";
 		};
 		C3DAEA4018EAE65000BA6839 /* Art */ = {
@@ -311,8 +325,10 @@
 			files = (
 				82E6ECBC18FC89EA00D57C79 /* background_lose.png in Resources */,
 				C3DAEA4518EAE65000BA6839 /* sprites.atlas in Resources */,
+				82E6ECC518FC9CCE00D57C79 /* blood.sks in Resources */,
 				664F74B618CFAC710038EFF7 /* InfoPlist.strings in Resources */,
 				82E6ECC118FC921A00D57C79 /* font.ttf in Resources */,
+				82E6ECC618FC9CCE00D57C79 /* spark.png in Resources */,
 				C3DAEA4418EAE65000BA6839 /* background.png in Resources */,
 				82E6ECBE18FC8EF900D57C79 /* background_start.png in Resources */,
 				664F74C918CFAC710038EFF7 /* Images.xcassets in Resources */,

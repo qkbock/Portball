@@ -39,6 +39,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     SKSpriteNode *_container;
     SKSpriteNode *_whiteHole;
     SKSpriteNode *_blackHole;
+    SKEmitterNode *_bloodEmitter;
     CGPoint _touchLocation;
     CGFloat _score;
     NSTimeInterval _lastUpdateTime;
@@ -222,6 +223,8 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     }
     if (collision == (CNPhysicsCategoryBall|CNPhysicsCategoryFriend)) {
         (contact.bodyA.categoryBitMask  == CNPhysicsCategoryFriend)?[contact.bodyA.node removeFromParent]:[contact.bodyB.node removeFromParent];
+        //MOVE BLOOD
+        [self makeBlood:CGPointMake(_ballNode.position.x, _ballNode.position.y)];
         [self increaseScore];
     }
 }
@@ -242,6 +245,19 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 }
 
 //--------------------------------------------------------------------------
+
+-(void)makeBlood:(CGPoint)position
+
+{
+    
+    _bloodEmitter = [NSKeyedUnarchiver unarchiveObjectWithFile: [[NSBundle mainBundle] pathForResource:@"blood"
+                                                                                ofType:@"sks"]];
+    _bloodEmitter.position = position;
+    _bloodEmitter.name = @"blood";
+    [self addChild:_bloodEmitter];
+    
+}
+
 
 -(void)spawnFriend:(CGPoint)position
 {
