@@ -614,6 +614,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 //        }
         counter = 0;
         power = YES;
+        [_powerIndicator removeFromParent];
         _powerIndicator = [SKSpriteNode spriteNodeWithImageNamed:@"ball"];
         _powerIndicator.position = CGPointMake(self.size.width - 40, self.size.height - 40);
         [self addChild:_powerIndicator];
