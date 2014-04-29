@@ -1,0 +1,29 @@
+2014-04-29 11:18:19: -- Portball: ANALYSIS started by User on 'Aero-iMac' (GoodSync 4.8.4.4)
+2014-04-29 11:18:19: /Users/administrator/Documents/iOS/Portball [TmpDest] =PropDels=> /Volumes/aeroxy/Documents/iOS/Portball [TmpDest], ReconnectSecs=120, CopyCreateTime
+2014-04-29 11:18:19: L: Files: 442 (excluded 4). Folders: 281 (excluded 1). /dev/disk1 HFS, Free: 2708.3 GB, Total: 2793.4 GB
+2014-04-29 11:18:19: R: State file does not exist: /Volumes/aeroxy/Documents/iOS/Portball/_gsdata_/_file_state_v4._gs
+2014-04-29 11:18:20: R: Files: 445 (excluded 4). Folders: 284 (excluded 0). //aeroxy@192.168.1.2/aeroxy AFPFS, Free: 30.8 GB, Total: 112.2 GB
+2014-04-29 11:18:20: Changes: 12, Conflicts: 0, CopyTime: 0, CopyState: 717/0, Errors: 0
+2014-04-29 11:18:20: Left to Right: Copy File: 6 Delete File: 6 Copy State: 717 
+2014-04-29 11:18:20: -- Analysis Completed. Time 00:00:01, Speed: 734 files/s
+2014-04-29 11:18:20: 
+2014-04-29 11:18:22: New _gsdata_ folder(s) created, so rescan all job folders for their ghosts
+2014-04-29 11:18:22: == Portball: SYNC started by User on 'Aero-iMac'
+2014-04-29 11:18:22: /Users/administrator/Documents/iOS/Portball [TmpDest] =PropDels=> /Volumes/aeroxy/Documents/iOS/Portball [TmpDest], ReconnectSecs=120, CopyCreateTime
+2014-04-29 11:18:22: Delete File '/Volumes/aeroxy/Documents/iOS/Portball/Portball/Portball.xcodeproj/project.xcworkspace/xcuserdata/aeroxy.xcuserdatad/UserInterfaceState.xcuserstate'
+2014-04-29 11:18:22: Delete Folder '/Volumes/aeroxy/Documents/iOS/Portball/Portball/Portball.xcodeproj/project.xcworkspace/xcuserdata/aeroxy.xcuserdatad'
+2014-04-29 11:18:22: Delete File '/Volumes/aeroxy/Documents/iOS/Portball/Portball/Portball.xcodeproj/xcuserdata/aeroxy.xcuserdatad/xcschemes/Portball.xcscheme'
+2014-04-29 11:18:22: Delete File '/Volumes/aeroxy/Documents/iOS/Portball/Portball/Portball.xcodeproj/xcuserdata/aeroxy.xcuserdatad/xcschemes/xcschememanagement.plist'
+2014-04-29 11:18:22: Delete Folder '/Volumes/aeroxy/Documents/iOS/Portball/Portball/Portball.xcodeproj/xcuserdata/aeroxy.xcuserdatad/xcschemes'
+2014-04-29 11:18:22: Delete Folder '/Volumes/aeroxy/Documents/iOS/Portball/Portball/Portball.xcodeproj/xcuserdata/aeroxy.xcuserdatad'
+2014-04-29 11:18:22: Copy Over '/Users/administrator/Documents/iOS/Portball/.git/index' -> '/Volumes/aeroxy/Documents/iOS/Portball/.git/index'
+2014-04-29 11:18:22: Copy Over '/Users/administrator/Documents/iOS/Portball/Portball/.git/index' -> '/Volumes/aeroxy/Documents/iOS/Portball/Portball/.git/index'
+2014-04-29 11:18:22: Copy Over '/Users/administrator/Documents/iOS/Portball/Portball/Portball/MyScene.h' -> '/Volumes/aeroxy/Documents/iOS/Portball/Portball/Portball/MyScene.h'
+2014-04-29 11:18:22: Copy Over '/Users/administrator/Documents/iOS/Portball/Portball/Portball/MyScene.m' -> '/Volumes/aeroxy/Documents/iOS/Portball/Portball/Portball/MyScene.m'
+2014-04-29 11:18:22: Copy Over '/Users/administrator/Documents/iOS/Portball/Portball/Portball.xcodeproj/project.xcworkspace/xcuserdata/administrator.xcuserdatad/UserInterfaceState.xcuserstate' -> '/Volumes/aeroxy/Documents/iOS/Portball/Portball/Portball.xcodeproj/project.xcworkspace/xcuserdata/administrator.xcuserdatad/UserInterfaceState.xcuserstate'
+2014-04-29 11:18:22: Copy Over '/Users/administrator/Documents/iOS/Portball/Portball/Portball.xcodeproj/xcuserdata/administrator.xcuserdatad/xcschemes/Portball.xcscheme' -> '/Volumes/aeroxy/Documents/iOS/Portball/Portball/Portball.xcodeproj/xcuserdata/administrator.xcuserdatad/xcschemes/Portball.xcscheme'
+2014-04-29 11:18:22: Save State File /Users/administrator/Documents/iOS/Portball/_gsdata_/_file_state_v4._gs
+2014-04-29 11:18:22: Save State File /Volumes/aeroxy/Documents/iOS/Portball/_gsdata_/_file_state_v4._gs
+2014-04-29 11:18:22: Items Synced OK: 729, Errors: 0
+2014-04-29 11:18:22: == Sync Completed. Time: 00:00:00, Speed: 0.0/s
+2014-04-29 11:18:22: 
