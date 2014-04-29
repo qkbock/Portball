@@ -38,6 +38,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     SKSpriteNode *_container;
     SKSpriteNode *_whiteHole;
     SKSpriteNode *_blackHole;
+    SKSpriteNode *_powerIndicator;
     SKEmitterNode *_bloodEmitter;
     CGPoint _touchLocation;
     CGFloat _score;
@@ -319,17 +320,17 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     CGPoint shelfPos = CGPointMake(self.size.width + 30, 20);
     
     //pick a thing to draw
-    double r = arc4random_uniform(5);
+    double r = arc4random_uniform(3);
     
-    if (r < 1) {
+    if (r == 0) {
         [self spawnEnemy:position];
     }
     
-    if (r >= 1 && r < 5) {
+    if (r == 1) {
         [self spawnFriend:position];
     }
 
-    if (r >= 5) {
+    if (r == 2) {
         [self spawnShelf:shelfPos];
     }
 }
@@ -350,6 +351,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
         }];
     } else if (power) {
         power = NO;
+        [_powerIndicator removeFromParent];
         [self portals:_touchLocation];
     }
 }
@@ -612,6 +614,9 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 //        }
         counter = 0;
         power = YES;
+        _powerIndicator = [SKSpriteNode spriteNodeWithImageNamed:@"ball"];
+        _powerIndicator.position = CGPointMake(self.size.width - 40, self.size.height - 40);
+        [self addChild:_powerIndicator];
     } else {
         counter ++;
     }
