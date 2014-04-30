@@ -35,11 +35,25 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 {
     SKNode *_bgLayer;
     SKNode *_ballNode;
+    SKNode *_earSpringHook;
+    SKNode *_jawSpringHook;
+    SKNode *_armSpringHook;
+    SKNode *_legSpringHook;
     SKSpriteNode *_container;
     SKSpriteNode *_whiteHole;
     SKSpriteNode *_blackHole;
     SKSpriteNode *_powerIndicator;
+    SKSpriteNode *_backLeg;
+    SKSpriteNode *_backArm;
+    SKSpriteNode *_backEar;
+    SKSpriteNode *_body;
+    SKSpriteNode *_frontLeg;
+    SKSpriteNode *_frontArm;
+    SKSpriteNode *_frontEar;
+    SKSpriteNode *_jaw;
     SKEmitterNode *_bloodEmitter;
+    SKEmitterNode *_whiteHoleEmitter;
+    SKEmitterNode *_blackHoleEmitter;
     CGPoint _touchLocation;
     CGFloat _score;
     NSTimeInterval _lastUpdateTime;
@@ -47,7 +61,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     BOOL isWhite;
     BOOL isBlack;
     BOOL gamePlay;
-    BOOL inPortal;
+    BOOL portSwitch;
     BOOL power;
     int teleWhite;
     int counter;
@@ -70,7 +84,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     self.physicsWorld.gravity = CGVectorMake(0, -2);
     self.physicsWorld.contactDelegate = self;
     
-    self.physicsBody = [SKPhysicsBody bodyWithEdgeFromPoint:CGPointMake(20, 0) toPoint:CGPointMake(self.size.width + 20, 0) ];
+    self.physicsBody = [SKPhysicsBody bodyWithEdgeFromPoint:CGPointMake(-20, 0) toPoint:CGPointMake(self.size.width + 20, 0) ];
     self.physicsBody.categoryBitMask    = CNPhysicsCategoryFloor;
     self.physicsBody.contactTestBitMask = CNPhysicsCategoryBall;
     
@@ -92,12 +106,14 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 -(void)reset
 {
     [self removeAllChildren];
+    [self removeAllActions];
+    
     gamePlay = YES;
     isWhite = NO;
     isBlack = NO;
     counter = 0;
     teleWhite = 0;
-    inPortal = NO;
+    portSwitch = NO;
     power = NO;
     
     for (int i = 0; i < 2; i++) {
@@ -150,14 +166,14 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 
     [self addChild:_ballNode];
     
-    SKSpriteNode *_body = [SKSpriteNode spriteNodeWithImageNamed:@"body"];
-    SKSpriteNode *_backLeg = [SKSpriteNode spriteNodeWithImageNamed:@"backLeg"];
-    SKSpriteNode *_backArm = [SKSpriteNode spriteNodeWithImageNamed:@"backArm"];
-    SKSpriteNode *_backEar = [SKSpriteNode spriteNodeWithImageNamed:@"backEar"];
-    SKSpriteNode *_frontArm = [SKSpriteNode spriteNodeWithImageNamed:@"frontArm"];
-    SKSpriteNode *_frontEar = [SKSpriteNode spriteNodeWithImageNamed:@"frontEar"];
-    SKSpriteNode *_frontLeg = [SKSpriteNode spriteNodeWithImageNamed:@"frontLeg"];
-    SKSpriteNode *_jaw = [SKSpriteNode spriteNodeWithImageNamed:@"jaw"];
+    _body = [SKSpriteNode spriteNodeWithImageNamed:@"body"];
+    _backLeg = [SKSpriteNode spriteNodeWithImageNamed:@"backLeg"];
+    _backArm = [SKSpriteNode spriteNodeWithImageNamed:@"backArm"];
+    _backEar = [SKSpriteNode spriteNodeWithImageNamed:@"backEar"];
+    _frontArm = [SKSpriteNode spriteNodeWithImageNamed:@"frontArm"];
+    _frontEar = [SKSpriteNode spriteNodeWithImageNamed:@"frontEar"];
+    _frontLeg = [SKSpriteNode spriteNodeWithImageNamed:@"frontLeg"];
+    _jaw = [SKSpriteNode spriteNodeWithImageNamed:@"jaw"];
     
     _backLeg.position      = CGPointMake(position.x - 1.811, position.y - 21.889);
     _backLeg.physicsBody   = [SKPhysicsBody bodyWithRectangleOfSize:_body.size];
@@ -208,10 +224,10 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     _jaw.physicsBody.collisionBitMask  = kNilOptions;
     [self addChild:_jaw];
     
-    SKNode *_earSpringHook = [SKNode node];
-    SKNode *_jawSpringHook = [SKNode node];
-    SKNode *_armSpringHook = [SKNode node];
-    SKNode *_legSpringHook = [SKNode node];
+    _earSpringHook = [SKNode node];
+    _jawSpringHook = [SKNode node];
+    _armSpringHook = [SKNode node];
+    _legSpringHook = [SKNode node];
     _earSpringHook.position = CGPointMake(position.x -8.536, position.y + 69.237);
     _jawSpringHook.position = CGPointMake(position.x +20.813, position.y + 31.891);
     _armSpringHook.position = CGPointMake(position.x +27.388, position.y - 12.729);
@@ -313,6 +329,22 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     [self runAction:[SKAction playSoundFileNamed:@"Portal.mp3" waitForCompletion:NO]];
 }
 
+-(void)moveBall:(CGPoint)position {
+    _ballNode.position      = position;
+    _backLeg.position       = CGPointMake(position.x - 1.811, position.y - 21.889);
+    _backArm.position       = CGPointMake(position.x + 8.623, position.y - 9.081 );
+    _backEar.position       = CGPointMake(position.x - 0.564, position.y + 43.339);
+    _body.position          = position;
+    _frontLeg.position      = CGPointMake(position.x - 6.048, position.y - 26.655);
+    _frontArm.position      = CGPointMake(position.x + 3.654, position.y - 10.44);
+    _frontEar.position      = CGPointMake(position.x - 6.64, position.y + 40.222);
+    _jaw.position           = CGPointMake(position.x + 15.822, position.y + 16.962);
+    _earSpringHook.position = CGPointMake(position.x -8.536, position.y + 69.237);
+    _jawSpringHook.position = CGPointMake(position.x +20.813, position.y + 31.891);
+    _armSpringHook.position = CGPointMake(position.x +27.388, position.y - 12.729);
+    _legSpringHook.position = CGPointMake(position.x +15.535, position.y + -14.443);
+}
+
 -(void)spawnObstacle
 {
     //pick position
@@ -353,6 +385,8 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
         power = NO;
         [_powerIndicator removeFromParent];
         [self portals:_touchLocation];
+    } else {
+        [self runAction:[SKAction playSoundFileNamed:@"Pop.mp3" waitForCompletion:NO]];
     }
 }
 
@@ -367,8 +401,14 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
         _whiteHole.physicsBody.categoryBitMask = CNPhysicsCategoryWhite;
         _whiteHole.physicsBody.collisionBitMask = kNilOptions;
         _whiteHole.physicsBody.contactTestBitMask = CNPhysicsCategoryBall;
-        [self runAction:[SKAction playSoundFileNamed:@"Pop.mp3" waitForCompletion:NO]];
+        [self runAction:[SKAction playSoundFileNamed:@"Fire.mp3" waitForCompletion:NO]];
         [self addChild:_whiteHole];
+        
+        _whiteHoleEmitter = [NSKeyedUnarchiver unarchiveObjectWithFile: [[NSBundle mainBundle] pathForResource:@"portal" ofType:@"sks"]];
+        _whiteHoleEmitter.position = position;
+        _whiteHoleEmitter.name = @"whiteHole";
+        [self addChild:_whiteHoleEmitter];
+        
         isWhite = YES;
     } else if (!isBlack) {
         _blackHole = [SKSpriteNode spriteNodeWithImageNamed:@"blackHole"];
@@ -379,12 +419,23 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
         _blackHole.physicsBody.categoryBitMask = CNPhysicsCategoryBlack;
         _blackHole.physicsBody.collisionBitMask = kNilOptions;
         _blackHole.physicsBody.contactTestBitMask = CNPhysicsCategoryBall;
-        [self runAction:[SKAction playSoundFileNamed:@"Pop.mp3" waitForCompletion:NO]];
+        [self runAction:[SKAction playSoundFileNamed:@"Fire.mp3" waitForCompletion:NO]];
         [self addChild:_blackHole];
+        
+        _blackHoleEmitter = [NSKeyedUnarchiver unarchiveObjectWithFile: [[NSBundle mainBundle] pathForResource:@"portal" ofType:@"sks"]];
+        _blackHoleEmitter.position = position;
+        _blackHoleEmitter.name = @"blackHole";
+        [self addChild:_blackHoleEmitter];
+        
         isBlack = YES;
-        _blackHole.userData = [@{@"exist":@(YES)} mutableCopy];
     } else if (isWhite && isBlack) {
-        _whiteHole.position = position;
+        if (!portSwitch) {
+            _whiteHole.position = position;
+            portSwitch = YES;
+        } else {
+            _blackHole.position = position;
+            portSwitch = NO;
+        }
     }
 }
 
@@ -395,22 +446,23 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
         if (isBlack) {
             teleWhite = 1;
         } else {
-            inPortal = YES;
-            [self lose];
+            [_whiteHole removeFromParent];
+            [_whiteHoleEmitter removeFromParent];
+            isWhite = NO;
+            [self runAction:[SKAction playSoundFileNamed:@"Transport.mp3" waitForCompletion:NO]];
         }
     }
     if (collision == (CNPhysicsCategoryBall | CNPhysicsCategoryBlack)) {
         if (isWhite) {
             teleWhite = 2;
         } else {
-            inPortal = YES;
-            [self lose];
+            [_blackHole removeFromParent];
+            [_blackHoleEmitter removeFromParent];
+            isBlack = NO;
+            [self runAction:[SKAction playSoundFileNamed:@"Transport.mp3" waitForCompletion:NO]];
         }
     }
     if (collision == (CNPhysicsCategoryBall|CNPhysicsCategoryEnemy)) {
-        [self removeAllChildren];
-        [self runAction:[SKAction playSoundFileNamed:@"Blast.mp3" waitForCompletion:NO]];        
-        [self runAction:[SKAction playSoundFileNamed:@"Scream.mp3" waitForCompletion:NO]];
         [self lose];
     }
     if (collision == (CNPhysicsCategoryBall|CNPhysicsCategoryFriend)) {
@@ -524,30 +576,22 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 -(void)lose
 {
     [self removeAllChildren];
+    [self removeAllActions];
     gamePlay = NO;
-    if (inPortal) {
-        [self runAction:[SKAction playSoundFileNamed:@"Transport.mp3" waitForCompletion:NO]];
-        [self runAction:[SKAction playSoundFileNamed:@"Scream.mp3" waitForCompletion:NO]];
-        SKSpriteNode* _loseBackground = [SKSpriteNode spriteNodeWithImageNamed:@"background_lose_2"];
-        _loseBackground.position = CGPointMake(self.size.width/2, self.size.height/2);
-        [self addChild:_loseBackground];
-        SKLabelNode *scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Bebas"];
-        scoreLabel.fontSize = 20.0;
-        scoreLabel.text = [NSString stringWithFormat:@"Score: %1.0f", _score];
-        scoreLabel.fontColor = [SKColor colorWithRed:255 green:255 blue:255 alpha:1.0];
-        scoreLabel.position = CGPointMake(scoreLabel.frame.size.width, self.size.height - scoreLabel.frame.size.height*2);
-        [self addChild:scoreLabel];
-    } else {
-        SKSpriteNode* _loseBackground = [SKSpriteNode spriteNodeWithImageNamed:@"background_lose"];
-        _loseBackground.position = CGPointMake(self.size.width/2, self.size.height/2);
-        [self addChild:_loseBackground];
-        SKLabelNode *scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Bebas"];
-        scoreLabel.fontSize = 20.0;
-        scoreLabel.text = [NSString stringWithFormat:@"Score: %1.0f", _score];
-        scoreLabel.fontColor = [SKColor colorWithRed:0 green:0 blue:0 alpha:1.0];
-        scoreLabel.position = CGPointMake(scoreLabel.frame.size.width, self.size.height - scoreLabel.frame.size.height*2);
-        [self addChild:scoreLabel];
-    }
+    
+    [self runAction:[SKAction playSoundFileNamed:@"Blast.mp3" waitForCompletion:NO]];
+    [self runAction:[SKAction playSoundFileNamed:@"Scream.mp3" waitForCompletion:NO]];
+
+    SKSpriteNode* _loseBackground = [SKSpriteNode spriteNodeWithImageNamed:@"background_lose"];
+    _loseBackground.position = CGPointMake(self.size.width/2, self.size.height/2);
+    [self addChild:_loseBackground];
+    SKLabelNode *scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Bebas"];
+    scoreLabel.fontSize = 20.0;
+    scoreLabel.text = [NSString stringWithFormat:@"Score: %1.0f", _score];
+    scoreLabel.fontColor = [SKColor colorWithRed:0 green:0 blue:0 alpha:1.0];
+    scoreLabel.position = CGPointMake(scoreLabel.frame.size.width, self.size.height - scoreLabel.frame.size.height*2);
+    [self addChild:scoreLabel];
+
     SKSpriteNode* _loseButton = [SKSpriteNode spriteNodeWithImageNamed:@"loseButton"];
     _loseButton.position = CGPointMake(self.size.width/2, self.size.height/2);
     _loseButton.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(_loseButton.size.width/2, _loseButton.size.height/2)];
@@ -578,19 +622,25 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     }
     _lastUpdateTime = currentTime;
     
-    if (teleWhite ==1) {
+    if (teleWhite == 1) {
         teleWhite = 0;
-        _ballNode.position = CGPointMake(_blackHole.position.x, _blackHole.position.y);
+        CGPoint position = _blackHole.position;
+        [self moveBall:position];
         [_whiteHole removeFromParent];
         [_blackHole removeFromParent];
+        [_whiteHoleEmitter removeFromParent];
+        [_blackHoleEmitter removeFromParent];
         isWhite = NO;
         isBlack = NO;
         [self runAction:[SKAction playSoundFileNamed:@"Portal.mp3" waitForCompletion:NO]];
-    } else if (teleWhite ==2) {
+    } else if (teleWhite == 2) {
         teleWhite = 0;
-        _ballNode.position = CGPointMake(_whiteHole.position.x, _whiteHole.position.y);
+        CGPoint position = _whiteHole.position;
+        [self moveBall:position];
         [_whiteHole removeFromParent];
         [_blackHole removeFromParent];
+        [_whiteHoleEmitter removeFromParent];
+        [_blackHoleEmitter removeFromParent];
         isWhite = NO;
         isBlack = NO;
         [self runAction:[SKAction playSoundFileNamed:@"Portal.mp3" waitForCompletion:NO]];
@@ -688,7 +738,9 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
                                _white.position = CGPointAdd(_white.position, amtToMove);
                                if (_white.position.x < 0) {
                                    [_white removeFromParent];
+                                   [_whiteHoleEmitter removeFromParent];
                                    isWhite = NO;
+                                   [self runAction:[SKAction playSoundFileNamed:@"Transport.mp3" waitForCompletion:NO]];
                                }
                            }];
     [self enumerateChildNodesWithName:@"blackHole"
@@ -699,7 +751,9 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
                                _black.position = CGPointAdd(_black.position, amtToMove);
                                if (_black.position.x < 0) {
                                    [_black removeFromParent];
+                                   [_blackHoleEmitter removeFromParent];
                                    isBlack = NO;
+                                   [self runAction:[SKAction playSoundFileNamed:@"Transport.mp3" waitForCompletion:NO]];
                                }
                            }];
 }
